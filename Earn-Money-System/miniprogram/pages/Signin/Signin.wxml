@@ -8,10 +8,10 @@
   <view class="mainbar">
     <form class="Signin-form" bindsubmit='SigninSubmitForm' bindreset=''>
       <view class="institute-select signin-line">
-        <picker bindchange="institutePicker" value="{{instituteIndex}}" range="{{instituteArray}}" name="instituteId">
+        <picker bindchange="institutePicker" value="{{instituteObject[instituteIndex]._id}}" range="{{instituteArray}}" name="instituteId">
           <view class="institute-picker-view">
             <text class="institute-picker-text">所在学院：</text>
-            <label class="institute-picker-info">{{instituteArray[instituteIndex]}}</label>
+            <label class="institute-picker-info">{{instituteObject[instituteIndex].name}}</label>
           </view>
         </picker>
       </view>
