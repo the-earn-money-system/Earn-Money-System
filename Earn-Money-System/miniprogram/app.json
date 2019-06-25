@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/Signin/Signin",
     "pages/main/main",
+    "pages/Signin/Signin",
     "pages/openapi/openapi",
     "pages/WeChatSignin/WeChatSignin",
     "pages/AccountBalance/AccountBalance",

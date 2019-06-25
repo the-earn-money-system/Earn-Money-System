@@ -21,7 +21,8 @@ Page({
     //              ,{title:"任务3" }
     //              ,{title:"任务4" }]
     all_mission_array:[],
-    my_mission_array:[]
+    my_mission_array:[],
+    user: null
   },
 
   getId: function(e){
@@ -70,17 +71,13 @@ Page({
   },
 
   button_my_mission:function(e){
-    /*const cloud = require('wx-server-sdk')
-    exports.main = async (event, context) => {
-      const res = await cloud.callFunction({
-        name: "getUserMission",
-        // 传递给云函数的参数
-        data: {
-          
-        }
-      })
-      return res.result
-    }*/
+    const res = wx.cloud.callFunction({
+      name: "getUserMission",
+      // 传递给云函数的参数
+      data: {
+        
+      }
+    })
     this.setData({
       visible_main: "display:block",
       visible_info: "display:none",
@@ -106,11 +103,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const db = wx.cloud.database()
-    db.collection('Mission').get().then(res => {
-      this.setData({
-        all_mission_array:res.data
-      })
+    wx.cloud.callFunction({
+      name: "getUserInfo",
+      complete: function(res){
+        console.log(res)
+      }
     })
   },
 

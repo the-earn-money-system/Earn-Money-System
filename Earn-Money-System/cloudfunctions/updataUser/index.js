@@ -9,13 +9,13 @@ exports.main = async (event, context) => {
   try {
     return db.collection('Mission').doc(event.id).update({
       data: {
-        Info: event.Info,
-        Pay: event.Pay,
-        Time: event.Time,
-        Title: event.Title,
-        publisher_id: event.publisher_id,
-        recipient_id: event.recipient_id,
-        state: event.state
+        user_id: event.user_id,
+        Institute_id: event.Institute_id,
+        head_portrait: event.head_portrait,
+        mission_accept: event.mission_accept,
+        mission_publish: event.mission_publish,
+        student_id: event.student_id,
+        user_name: event.user_name
       }
     })
   } catch (e) {

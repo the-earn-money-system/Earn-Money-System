@@ -21,18 +21,19 @@ Page({
 
   SigninSubmitForm: function (e) {
     var app = getApp()
-    const db = wx.cloud.database()
-    db.collection('User').add({
+
+    wx.cloud.callFunction({
+      name: "addUser",
       data: {
         user_id: app.globalData.openid,
         Institute_id: e.detail.value.instituteId,
-        head_portrait: "",
+        head_portrait: app.globalData.head_portrait,
         mission_accept: [],
         mission_publish: [],
-        student_id: 0,
-        user_name: ""
+        student_id: e.detail.value.studentid,
+        user_name: app.globalData.user_name
       },
-      success: function (res) {
+      complete: function (res) {
         console.log(res)
       }
     })
@@ -69,7 +70,6 @@ Page({
       name: "login",
       success: function(res){
         getApp().globalData.openid = res.result.openid
-        console.log(app.globalData.openid)
       }
     })
   },
