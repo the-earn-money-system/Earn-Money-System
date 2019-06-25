@@ -1,0 +1,42 @@
+/* pages/HeadPortraitModify/HeadPortraitModify.wxss */
+#head-portrait-view{
+  width: 400rpx;
+  height: 400rpx; 
+  border-radius: 50%;
+  border: 1rpx solid rgba(0, 0, 0, 0.137);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(30%)
+}
+
+#head-portrait-img{
+  display: none;
+}
+
+.button-view{
+  position: absolute;
+  margin: auto;
+  bottom: 30%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+#photo-album{
+  width: 50%;
+  background-color: white;
+  border: 1rpx solid rgba(0, 0, 0, 0.137);
+  color: red;
+}
+
+#camera{
+  width: 50%;
+  background-color: white;
+  border: 1rpx solid rgba(0, 0, 0, 0.137);
+  transform: translateY(100%);
+  color: red;
+}

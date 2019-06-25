@@ -1,0 +1,24 @@
+<!--pages/Signin/Signin.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit">退出</button>
+  </view>
+  <view class="mainbar">
+    <form class="Signin-form" bindsubmit='SigninSubmitForm' bindreset=''>
+      <view class="institute-select signin-line">
+        <picker bindchange="institutePicker" value="{{instituteIndex}}" range="{{instituteArray}}" name="instituteId">
+          <view class="institute-picker-view">
+            <text class="institute-picker-text">所在学院：</text>
+            <label class="institute-picker-info">{{instituteArray[instituteIndex]}}</label>
+          </view>
+        </picker>
+      </view>
+      <view class="studentid-input signin-line">
+          <text class="id-text">学号：</text><input class="id-input" name="studentid"></input>
+      </view>
+      <button class="Signin-submit" form-type='submit'>登录</button>
+    </form>
+  </view>
+</view>

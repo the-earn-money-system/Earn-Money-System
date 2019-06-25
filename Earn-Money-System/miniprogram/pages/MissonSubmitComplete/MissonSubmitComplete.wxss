@@ -1,0 +1,36 @@
+/* pages/MissonSubmitComplete/MissonSubmitComplete.wxss */
+#Mission-Submit-Complete-view{
+  width:80%;
+  height: 400rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.137);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(50%)
+}
+
+.mission-complete-button{
+  position: absolute;
+  display: inline-flex;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.back{
+  display: none;
+}
+
+#submitOtherMission{
+  left: 0;
+  width:50%;
+}
+
+#backToHome{
+  right: 0;
+  width:50%;
+}

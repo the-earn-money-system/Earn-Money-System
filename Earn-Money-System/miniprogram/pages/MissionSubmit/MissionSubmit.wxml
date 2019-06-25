@@ -1,0 +1,26 @@
+<!--pages/MissionSubmit/MissionSubmit.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit">退出</button>
+  </view>
+  <view class="mainbar">
+    <form class="mission-submit-form" bindsubmit='missionSubmit' bindreset='missionReset'>
+      <view class="mission-info-view">
+        <view class="mission-info-line">
+          <text class="mission-info-text">任务信息1</text>
+          <textarea class="mission-info-input" name="mission-info-input1"></textarea>
+        </view>
+        <view class="mission-info-line">
+          <text class="mission-info-text">任务信息2</text>
+          <textarea class="mission-info-input" name="mission-info-input2"></textarea>
+        </view>
+      </view>
+      <view class="button-view">
+        <button class="mission-button" id="mission-cancel" form-type='reset'>取消</button>
+        <button class="mission-button" id="mission-submit" form-type='submit'>提交</button>
+      </view>
+    </form>
+  </view>
+</view>

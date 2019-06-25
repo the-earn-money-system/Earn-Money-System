@@ -1,0 +1,10 @@
+<!--pages/Signin.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">←</button>
+    <text class="topbar-title">{{topbartitleinfo}}</text>
+    <button class="quit">Quit</button>
+  </view>
+  <view class="mainbar">
+  </view>
+</view>

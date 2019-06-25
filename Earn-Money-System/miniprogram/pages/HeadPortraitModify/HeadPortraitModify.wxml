@@ -1,0 +1,18 @@
+<!--pages/HeadPortraitModify/HeadPortraitModify.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit">退出</button>
+  </view>
+  <view class="mainbar">
+    <view id="head-portrait-view">
+      <image id="head-portrait-img"></image>
+      <text>选择头像</text>   <!--当没有头像时，显示text(或设定默认头像); 当有头像时，显示头像 -->
+    </view>
+    <view class="button-view">
+      <button id="photo-album">从相册中选择</button>
+      <button id="camera">现在拍摄</button>
+    </view>
+  </view>
+</view>

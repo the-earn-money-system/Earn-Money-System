@@ -1,0 +1,17 @@
+<!--pages/MissonSubmitComplete/MissonSubmitComplete.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit">退出</button>
+  </view>
+  <view class="mainbar">
+    <view id="Mission-Submit-Complete-view">
+      <text id="Mission-Submit-Complete-text">发布完成</text>
+    </view>
+    <view class="button-view">
+      <button class="mission-complete-button" id="submitOtherMission">发布其它任务</button>
+      <button class="mission-complete-button" id="backToHome">回到首页</button>
+    </view>
+  </view>
+</view>

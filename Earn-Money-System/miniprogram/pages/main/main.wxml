@@ -1,0 +1,94 @@
+<!--main.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back" style="display:none">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit" bindtap="button_quit">退出</button>
+  </view>
+
+  <view class="mainbar">
+    <view class="main_body" style="{{visible_main}}">
+      <form bindsubmit="search_submit" bindreset="">
+        <view class="main_searchbar" style="{{visible_all_mission}}">
+          <input class="search_input" placeholder="搜索任务" name="search_input"></input>
+          <button class="main_button" form-type="reset">清空</button>
+          <button class="main_button" form-type="submit">搜索</button>
+        </view>
+      </form>
+
+      <view class="main_mission" style="{{visible_my_mission}}">
+        <button class="mission_button" bindtap="mission_accept">我接受的</button>
+        <button class="mission_button" bindtap="mission_release">我发布的</button>
+      </view>
+
+      <view class="main_infobar" style="{{visible_all_mission}}">
+        <picker class="info_input" bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view>
+            {{array[index]}}
+          </view>
+        </picker>
+        <button class="info_button" bindtap="order_select">筛选</button>
+      </view>
+
+      <scroll-view scroll-y="true" style="height: 80%;{{visible_all_mission}};" scroll-top="100">
+        <view class="scroll-y">
+          <view wx:for="{{all_mission_array}}" wx:key="_id">
+            <view class="scroll_mission">
+              <view class=".info_view">
+                <button class = "info_button" bindtap="mission_info">查看详情</button>
+              </view>
+              <view class="mission_view">
+                <text class="mission_info_text">{{item.Title}}</text>
+              </view>
+              <view class="opera_view">
+                <button class="opera_button" data-missionId="{{item.info}}" bindtap="getId">接受任务</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <scroll-view scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
+        <view class="scroll-y">
+          <view wx:for-items="{{mission_array}}" wx:key="_id">
+            <view class="scroll_mission">
+              <view class=".info_view">
+                <button class = "info_button" bindtap="mission_info">查看详情</button>
+              </view>
+              <view class="mission_view">
+                <text class="mission_info_text">{{item.Title}}</text>
+              </view>
+              <view class="opera_view">
+                <button class="opera_button">取消发布</button>
+                <button class="opera_button">提交任务</button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+    </view>
+
+    <view class="main_body" style="{{visible_info}}">
+      <view class="main_userInfo">
+        <image class="circle"></image>
+        <text class="userinfo">信息</text>
+      </view>
+      <view class="main_userOpea">
+        <view class="change_name">
+          <button>修改昵称</button>
+          <input placeholder="最大不超过8个字符" bindinput="changeInput"></input>
+        </view>
+        <button class="user_button">修改头像</button>
+        <button class="user_button">查看账户信息</button>
+        <button class="user_button">退出登录</button>
+      </view>
+    </view>
+
+    <view class="main_bottombar">
+      <button class="bottom_button" bindtap="button_mainpage">首页</button>
+      <button class="bottom_button" bindtap="button_my_mission">我的任务</button>
+      <button class="bottom_button" bindtap="button_my_info">我的信息</button>
+    </view>
+  </view>
+</view>

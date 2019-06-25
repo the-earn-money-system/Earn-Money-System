@@ -1,0 +1,18 @@
+<!--pages/AccountBalance/AccountBalance.wxml-->
+<view class="container">
+  <view class="topbar">
+    <button class="back">返回</button>
+    <text class="topbar-title" >{{topbartitleinfo}}</text>
+    <button class="quit">退出</button>
+  </view>
+  <view class="mainbar">
+    <view id="account-balance">
+      <text>账户余额</text>
+      <text>{{balance}}</text>
+    </view>
+    <view class="button-view">
+      <button id="recharge">充值</button>
+      <button id="cash-withdrawal">提现</button>
+    </view>
+  </view>
+</view>
