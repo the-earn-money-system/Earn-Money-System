@@ -70,6 +70,17 @@ Page({
   },
 
   button_my_mission:function(e){
+    /*const cloud = require('wx-server-sdk')
+    exports.main = async (event, context) => {
+      const res = await cloud.callFunction({
+        name: "getUserMission",
+        // 传递给云函数的参数
+        data: {
+          
+        }
+      })
+      return res.result
+    }*/
     this.setData({
       visible_main: "display:block",
       visible_info: "display:none",

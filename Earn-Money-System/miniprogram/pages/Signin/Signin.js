@@ -8,7 +8,8 @@ Page({
     topbartitleinfo: "注册",
     instituteObject:null,
     instituteArray: null,
-    instituteIndex: 0
+    instituteIndex: 0,
+    openID: ""
   },
 
   institutePicker: function (e) {
@@ -19,15 +20,22 @@ Page({
   },
 
   SigninSubmitForm: function (e) {
-    const cloud = require("wx-server-sdk")
-    exports.main = async (event,context) => {
-      const res = await cloud.callFunction({
-        name: "addUser",
-        data: {
-          user_id: 
-        }
-      })
-    }
+    var app = getApp()
+    const db = wx.cloud.database()
+    db.collection('User').add({
+      data: {
+        user_id: app.globalData.openid,
+        Institute_id: e.detail.value.instituteId,
+        head_portrait: "",
+        mission_accept: [],
+        mission_publish: [],
+        student_id: 0,
+        user_name: ""
+      },
+      success: function (res) {
+        console.log(res)
+      }
+    })
   },
 
 
@@ -49,13 +57,21 @@ Page({
         that.setData({ instituteArray: temp2})
       }
     })
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var app = getApp();
+    wx.cloud.callFunction({
+      name: "login",
+      success: function(res){
+        getApp().globalData.openid = res.result.openid
+        console.log(app.globalData.openid)
+      }
+    })
   },
 
   /**
