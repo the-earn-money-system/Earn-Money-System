@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    topbartitleinfo: "登录",
+    topbartitleinfo: "注册",
     instituteObject:null,
     instituteArray: null,
     instituteIndex: 0
@@ -19,7 +19,15 @@ Page({
   },
 
   SigninSubmitForm: function (e) {
-    console.log(e.detail.value);
+    const cloud = require("wx-server-sdk")
+    exports.main = async (event,context) => {
+      const res = await cloud.callFunction({
+        name: "addUser",
+        data: {
+          user_id: 
+        }
+      })
+    }
   },
 
 

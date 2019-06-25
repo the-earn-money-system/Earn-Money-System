@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/Signin/Signin",
     "pages/main/main",
     "pages/openapi/openapi",
     "pages/WeChatSignin/WeChatSignin",
@@ -8,7 +9,6 @@
     "pages/MissionDetail/MissionDetail",
     "pages/MissionSubmit/MissionSubmit",
     "pages/MissonSubmitComplete/MissonSubmitComplete",
-    "pages/Signin/Signin",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
