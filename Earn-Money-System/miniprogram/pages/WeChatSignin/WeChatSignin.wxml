@@ -11,7 +11,8 @@
       <text>小程序的介绍以及注意事项</text>
     </view>
     <view class="button-view">
-      <button id="Wechat-signin-button">微信用户登录</button>
+      <button wx:if="{{canIUse}}" open-type='getUserInfo' class="Wechat-signin-button" bindtap="getUserInfo">微信用户登录</button>
+      <view wx:else class="Wechat-signin-button">请升级微信版本</view>
     </view>
   </view>
 </view>

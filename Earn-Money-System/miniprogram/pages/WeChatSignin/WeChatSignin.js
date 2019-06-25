@@ -5,14 +5,32 @@ Page({
    * 页面的初始数据
    */
   data: {
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
+  },
 
+  getUserInfo: function(e) {
+    console.log(e)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var app = getApp();
+    // 如果未授权，则授权
+    wx.getSetting({
+      success: function(res) {
+        if (res.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: function(res) {
+              console.log(res)
+              getApp().globalData.user_name = res.userInfo.nickName
+              getApp().globalData.head_portrait = res.userInfo.avatarUrl
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
