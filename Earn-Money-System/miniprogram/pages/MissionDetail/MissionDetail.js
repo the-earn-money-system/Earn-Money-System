@@ -7,13 +7,33 @@ Page({
   data: {
       topbartitleinfo:"任务详情",
       isUserPublisher:true,
+      disabled:true,
       missionName:"Temp",
       time:"temp",
       pay:"temp",
       progress:"temp",
-      detail:"temp"
+      detail:"temp",
+
+      compileButton:false
+  },
+  // 重新编辑任务信息
+  recompileMission: function(e){
+    this.setData({compileButton: true})
+    this.setData({ disabled: false })
   },
 
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      time: e.detail.value
+    })
+  },
+
+  recompileMissionForm: function(e){
+    console.log(e.detail.value)
+    this.setData({ compileButton: false })
+    this.setData({ disabled: true })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

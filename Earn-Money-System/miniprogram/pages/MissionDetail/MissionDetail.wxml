@@ -6,16 +6,29 @@
     <button class="quit">退出</button>
   </view>
   <view class="mainbar">
-    <view id="Mission-Detail-view">
-      <text class="mission-detail-info">任务名称：{{missionName}}</text>
-      <text class="mission-detail-info">时间：{{time}}</text>
-      <text class="mission-detail-info">报酬：{{pay}}</text>
-      <text class="mission-detail-info">进度：{{progress}}</text>
-      <textarea class="mission-detail-info" id="detail" disabled='true'>详情：{{detail}}</textarea>
+    <form id="Mission-Detail-view" bindsubmit='recompileMissionForm'>
+      <text>任务名称:</text><input class="mission-detail-info" disabled='{{disabled}}' value='{{missionName}}' name="missionName"></input>
+      <text>时间：</text>
+        <view class="mission-detail-info" >
+          <picker mode='date' start="2019-06-01" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
+            <view>{{time}}</view>
+          </picker>
+        </view>
+      <text>报酬：</text>
+        <input class="mission-detail-info" disabled='{{disabled}}' value='{{pay}}' name="pay"></input>
+      <text>进度：</text>
+        <input class="mission-detail-info" disabled='true' value='{{progress}}' name="progress"></input>
+      <text>详情：</text>
+        <textarea class="mission-detail-info" disabled='{{disabled}}' id="detail" value='{{detail}}' name="detail"></textarea>
+    <view id="recompile-mission-check" wx:if="{{isUserPublisher==true}}">
+      <view wx:if="{{compileButton}}">
+        <button id="recompile-mission-button" form-type="submit">确认</button>   
+      </view>
+      <view wx:else>
+        <button id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+      </view>
     </view>
-    <view wx:if="{{isUserPublisher==true}}">
-      <button id="recompile-mission-button">重新编辑任务信息</button>
-    </view>
+    </form> 
     <view class="button-view">
       <button wx:if="{{isUserPublisher==true}}" class="mission-detail-button" id="button-cancel">取消发布</button>
       <button wx:else class="mission-detail-button" id="button-cancel">取消接受</button>

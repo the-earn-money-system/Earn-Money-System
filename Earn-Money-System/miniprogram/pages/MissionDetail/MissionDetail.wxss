@@ -1,7 +1,7 @@
 /* pages/MissionDetail/MissionDetail.wxss */
 #Mission-Detail-view{
   width:80%;
-  height: 600rpx;
+  height: 800rpx;
   border: 1rpx solid rgba(0, 0, 0, 0.137);
   margin: auto;
   display: flex;
@@ -9,10 +9,15 @@
   transform: translateY(15%)
 }
 
+#recompile-mission-check{
+  width: 100%;
+  position: fixed;
+  bottom: 0rpx;
+}
+
 #recompile-mission-button{
-  width: 80%;
+  width: 100%;
   background-color: white;
-  display: default; /* none if user isn't the publisher */
 }
 
 #recompile-mission-button:active{
@@ -29,13 +34,18 @@
   background-color: white;
 }
 
+.input-info{
+  background-color: red;
+  height: 20rpx;
+  width: 100rpx;
+}
+
 .mission-detail-info{
   width: 100%;
   border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
 }
 
 #detail{
-  height: 100%;
   overflow: scroll;
   border-bottom: 0rpx solid rgba(0, 0, 0, 0.137);
 }
