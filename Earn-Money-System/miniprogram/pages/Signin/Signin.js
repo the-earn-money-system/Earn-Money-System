@@ -6,18 +6,13 @@ Page({
    */
   data: {
     topbartitleinfo: "登录",
-    instituteArray: ['数据科学与计算机学院', '管理学院', '护理学院', '中山医学院'],
-    objectArray: [
-      { id: 0, name: '数据科学与计算机学院' },
-      { id: 1, name: '管理学院' },
-      { id: 2, name: '护理学院' },
-      { id: 3, name: '中山医学院' }
-    ],
+    instituteObject:null,
+    instituteArray: null,
     instituteIndex: 0
   },
 
   institutePicker: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value);
+    //console.log('picker发送选择改变，携带值为', e.detail.value);
     this.setData({
       instituteIndex: e.detail.value
     })
@@ -32,7 +27,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //从数据库获取学院信息
+    const db = wx.cloud.database();
+    var that = this;
+    var temp = null;
+    var temp2 = null;
+    db.collection('Institude').limit(999).get({
+      success: (res) => {
+        //console.log(res.data);
+        temp = res.data;
+        that.setData({ instituteObject: res.data});
+        temp2= temp.map(a => a.name);
+        that.setData({ instituteArray: temp2})
+      }
+    })
   },
 
   /**
