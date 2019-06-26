@@ -1,4 +1,5 @@
 // pages/Signin/Signin.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -21,6 +22,7 @@ Page({
 
   SigninSubmitForm: function (e) {
     var app = getApp()
+    var time = util.formatTime(new Date())
     if (e.detail.value.studentid==""){
       console.error("学号不能为空")
       return
@@ -35,7 +37,8 @@ Page({
         mission_publish: [],
         student_id: e.detail.value.studentid,
         user_name: app.globalData.user_name,
-        account: 10
+        account: 10,
+        last: time
       },
       complete: function (res) {
         console.log(res)
