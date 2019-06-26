@@ -6,7 +6,8 @@ Page({
    */
   data: {
     topbartitleinfo: "发布任务",
-    time: "2019-06-26"
+    time: "2019-06-26",
+    mission: null
   },
   
   backToHome: function (e) {
@@ -44,6 +45,17 @@ Page({
       },
       complete: function (res) {
         console.log(res)
+        app.globalData.user.mission_publish.push(res.result._id)
+        wx.cloud.callFunction({
+          name: "updataMyPublish",
+          data: {
+            user_id: app.globalData.openid,
+            mission_publish: app.globalData.user.mission_publish
+          },
+          complete: function (res) {
+            console.log(res)
+          }
+        })
       }
     })
 
@@ -60,7 +72,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

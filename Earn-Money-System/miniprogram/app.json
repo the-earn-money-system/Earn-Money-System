@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/WeChatSignin/WeChatSignin",
+    "pages/MissionSubmit/MissionSubmit",
     "pages/main/main",
     "pages/Signin/Signin",
     "pages/AccountBalance/AccountBalance",
     "pages/HeadPortraitModify/HeadPortraitModify",
     "pages/MissionDetail/MissionDetail",
-    "pages/MissionSubmit/MissionSubmit",
     "pages/MissonSubmitComplete/MissonSubmitComplete",
     "pages/index/index"
   ],
