@@ -8,6 +8,12 @@ Page({
     topbartitleinfo: "发布任务",
     time: "2019-06-26"
   },
+  
+  backToHome: function (e) {
+    wx.redirectTo({
+      url: '../main/main',
+    })
+  },
 
   bindTimeChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)

@@ -28,7 +28,7 @@
         </view>
       </view>
       <view class="button-view">
-        <button class="mission-button" id="mission-cancel" form-type='reset'>取消</button>
+        <button class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>取消</button>
         <button class="mission-button" id="mission-submit" form-type='submit'>提交</button>
       </view>
     </form>
