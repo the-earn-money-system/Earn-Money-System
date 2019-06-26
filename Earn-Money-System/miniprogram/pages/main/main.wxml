@@ -59,9 +59,9 @@
                 <text class="mission_info_text">{{item.Title}}</text>
               </view>
               <view class="opera_view">
-                <button wx:if="{{accept_or_publish}}" class="opera_button">取消接受</button>
-                <button wx:else class="opera_button">取消发布</button>
-                <button wx:if="{{accept_or_publish}}" class="opera_button">提交任务</button>
+                <button wx:if="{{accept_or_publish}}" class="opera_button" bindtap="button_cancel_accept">取消接受</button>
+                <button wx:else class="opera_button" bindtap="button_cancel">取消发布</button>
+                <button wx:if="{{accept_or_publish}}" class="opera_button" bindtap="button_finish">提交任务</button>
               </view>
             </view>
           </view>

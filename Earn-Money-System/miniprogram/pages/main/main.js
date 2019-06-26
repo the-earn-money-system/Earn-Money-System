@@ -144,7 +144,7 @@ Page({
   button_my_mission:function(e){
     var app = getApp()
     var that = this
-    var mission = []
+    
     wx.cloud.callFunction({
       name: "getAcceptedMission",        // 传递给云函数的参数
       data: {
@@ -209,6 +209,88 @@ Page({
     })
   },
 
+  button_cancel_accept: function (e) {
+    var app = getApp()
+    var that = this
+    console.log(e.currentTarget.dataset.missionid)
+    const res1 = wx.cloud.callFunction({
+      name: "acceptMission",
+      data: {
+        id: e.currentTarget.dataset.missionid,
+        recipient_id: "",
+        state: "Unfinished"
+      },
+      complete: function (e) {
+        console.log(e.result)
+        //get isUserPublisher from Server
+        wx.cloud.callFunction({
+          name: "getAcceptedMission",        // 传递给云函数的参数
+          data: {
+            user_id: app.globalData.openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
+    })
+  },
+
+  button_cancel: function(e){
+    var app = getApp()
+    var that = this
+    const res = wx.cloud.callFunction({
+      name: "updataMissionState",
+      data: {
+        id: e.currentTarget.dataset.missionid,
+        state: "Canceled"
+      },
+      complete: function (e) {
+        console.log(e.result)
+        //get isUserPublisher from Server
+        wx.cloud.callFunction({
+          name: "getPublishedMission",        // 传递给云函数的参数
+          data: {
+            user_id: app.globalData.openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
+    })
+  },
+
+  button_finish: function(e){
+    var app = getApp()
+    var that = this
+    const res = wx.cloud.callFunction({
+      name: "updataMissionState",
+      data: {
+        id: e.currentTarget.dataset.missionid,
+        state: "Finished"
+      },
+      complete: function (e) {
+        console.log(e.result)
+        //get isUserPublisher from Server
+        wx.cloud.callFunction({
+          name: "getAcceptedMission",        // 传递给云函数的参数
+          data: {
+            user_id: app.globalData.openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
