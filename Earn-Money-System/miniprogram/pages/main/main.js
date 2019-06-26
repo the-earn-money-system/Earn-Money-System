@@ -389,7 +389,19 @@ Page({
         }
       }
     })
+  },
 
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     if (this.data.index == 0) {         // time order
       const db = wx.cloud.database()
       db.collection('Mission').get().then(res => {
@@ -413,25 +425,6 @@ Page({
         })
       })
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    const db = wx.cloud.database()
-    db.collection('Mission').get().then(res => {
-      this.setData({
-        all_mission_array: res.data
-      })
-    })
   },
 
   /**
