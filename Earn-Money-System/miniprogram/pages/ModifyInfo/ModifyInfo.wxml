@@ -11,14 +11,15 @@
         <picker bindchange="institutePicker" value="{{instituteObject[instituteIndex]._id}}" range="{{instituteArray}}" name="instituteId">
           <view class="institute-picker-view">
             <text class="institute-picker-text">所在学院：</text>
-            <label class="institute-picker-info">{{instituteObject[instituteIndex].name}}</label>
+            <label wx:if="{{click}}" class="institute-picker-info">{{instituteObject[instituteIndex].name}}</label>
+            <label wx:else class="institute-picker-info">{{instituteName}}</label>
           </view>
         </picker>
       </view>
       <view class="studentid-input signin-line">
-          <text class="id-text">学号：</text><input class="id-input" name="studentid"></input>
+          <text class="id-text">学号：</text><input class="id-input" name="studentid" value='{{studentid}}'></input>
       </view>
-      <button class="Signin-submit" form-type='submit'>登录</button>
+      <button class="Signin-submit" form-type='submit'>确认修改</button>
     </form>
   </view>
 </view>

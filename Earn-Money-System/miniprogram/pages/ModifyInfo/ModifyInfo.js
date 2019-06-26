@@ -10,12 +10,16 @@ Page({
     instituteObject:null,
     instituteArray: null,
     instituteIndex: 0,
+    studentid:null,
+    instituteName:null,
+    click:false,
     openID: ""
   },
 
   institutePicker: function (e) {
     //console.log('picker发送选择改变，携带值为', e.detail.value);
     this.setData({
+      click: true,
       instituteIndex: e.detail.value
     })
   },
@@ -41,6 +45,7 @@ Page({
   onLoad: function (options) {
     //从数据库获取学院信息
     const db = wx.cloud.database();
+    var app = getApp()
     var that = this;
     var temp = null;
     var temp2 = null;
@@ -54,6 +59,18 @@ Page({
       }
     })
 
+    wx.cloud.callFunction({
+      name: "getInstitude",        // 传递给云函数的参数
+      data: {
+        institute_id: app.globalData.user.Institute_id
+      },
+    }).then(res => {
+      console.log(res.result.data.name)
+      that.setData({
+        studentid: app.globalData.user.student_id,
+        instituteName: res.result.data.name
+      })
+    }) 
   },
 
   /**
