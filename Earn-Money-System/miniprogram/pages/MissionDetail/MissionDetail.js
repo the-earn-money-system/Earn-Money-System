@@ -66,15 +66,9 @@ Page({
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
       const res = wx.cloud.callFunction({
-        name: "updataMission",
+        name: "updataMissionState",
         data: {
           id: this.data.mission._id,
-          Info: this.data.mission.Info,
-          Pay: this.data.mission.Pay,
-          Time: this.data.mission.Time,
-          Title: this.data.mission.Title,
-          publisher_id: this.data.mission.publisher_id,
-          recipient_id: this.data.mission.recipient_id,
           state: this.data.progress
         },
         complete: function (e) {
@@ -84,17 +78,13 @@ Page({
     }
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
       var app = getApp()
+      app.globalData.user.mission_accept.push(this.data.mission._id)
       const res = wx.cloud.callFunction({
-        name: "updataMission",
+        name: "acceptMission",
         data: {
           id: this.data.mission._id,
-          Info: this.data.mission.Info,
-          Pay: this.data.mission.Pay,
-          Time: this.data.mission.Time,
-          Title: this.data.mission.Title,
-          publisher_id: this.data.mission.publisher_id,
           recipient_id: app.globalData.openid,
-          state: this.data.mission.state
+          mission_accept: app.globalData.user.mission_accept
         },
         complete: function (e) {
           console.log("路人" + e.result)
