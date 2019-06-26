@@ -47,6 +47,7 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
+      var that = this
       const res1 = wx.cloud.callFunction({
         name: "updataMission",
         data: {
@@ -77,7 +78,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            this.setData({
+            that.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
@@ -92,11 +93,12 @@ Page({
       })
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
+      var that = this
       const res = wx.cloud.callFunction({
         name: "updataMissionState",
         data: {
-          id: this.data.mission._id,
-          state: this.data.progress
+          id: that.data.mission._id,
+          state: "Finished"
         },
         complete: function (e) {
           console.log(e.result)
@@ -116,7 +118,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            this.setData({
+            that.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
@@ -132,11 +134,11 @@ Page({
     }
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
       var app = getApp()
-      app.globalData.user.mission_accept.push(this.data.mission._id)
+      var that = this
       const res = wx.cloud.callFunction({
         name: "acceptMission",
         data: {
-          id: this.data.mission._id,
+          id: that.data.mission._id,
           recipient_id: app.globalData.openid,
           state: "Accepted"
         },
@@ -158,7 +160,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            this.setData({
+            that.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
@@ -176,11 +178,12 @@ Page({
 
   buttonCancle: function(e){
     if (this.data.isUserPublisher) {  //当用户为发布者，按钮用于取消发布
+      var that = this
       const res = wx.cloud.callFunction({
         name: "updataMissionState",
         data: {
           id: this.data.mission._id,
-          state: "canceled"
+          state: "Canceled"
         },
         complete: function (e) {
           console.log(e.result)
@@ -200,7 +203,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            this.setData({
+            that.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
@@ -216,6 +219,7 @@ Page({
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于取消接受
       var app = getApp()
+      var that = this
       const res1 = wx.cloud.callFunction({
         name: "acceptMission",
         data: {
@@ -241,7 +245,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            this.setData({
+            that.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
