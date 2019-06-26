@@ -34,7 +34,8 @@ Page({
         mission_accept: [],
         mission_publish: [],
         student_id: e.detail.value.studentid,
-        user_name: app.globalData.user_name
+        user_name: app.globalData.user_name,
+        account: 10
       },
       complete: function (res) {
         console.log(res)

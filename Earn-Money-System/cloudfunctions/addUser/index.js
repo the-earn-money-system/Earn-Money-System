@@ -15,7 +15,8 @@ exports.main = async (event, context) => {
         mission_accept: event.mission_accept,
         mission_publish: event.mission_publish,
         student_id: event.student_id,
-        user_name: event.user_name
+        user_name: event.user_name,
+        account: event.account
       }
     })
   }catch (e){

@@ -77,7 +77,7 @@ Page({
         name: "getUserMission",
         // 传递给云函数的参数
         data: {
-          missionId: app.globalData.user.mission_accept[id]
+          missionId: app.globalData.user.mission_publish[id]
         },
         complete: function (res) {
           mission.push(res.result.data)
