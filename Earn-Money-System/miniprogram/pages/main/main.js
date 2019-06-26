@@ -65,7 +65,20 @@ Page({
   },
 
   search_submit:function(e){
-    console.log("submit:",e.detail.value)
+    var that = this
+    var title = e.detail.value.search_input
+    wx.cloud.callFunction({
+      name: "searchMission",
+      data:{
+        Title: title
+      },
+      complete: function(res){
+        console.log(res.result)
+        that.setData({
+          all_mission_array: res.result.data
+        })
+      }
+    })
   },
 
   bindPickerChange:function(e){
