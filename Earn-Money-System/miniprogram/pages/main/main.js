@@ -275,7 +275,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const db = wx.cloud.database()
+    db.collection('Mission').get().then(res => {
+      this.setData({
+        all_mission_array: res.data
+      })
+    })
   },
 
   /**
