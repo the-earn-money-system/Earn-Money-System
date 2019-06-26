@@ -9,7 +9,35 @@ Page({
   },
 
   getUserInfo: function(e) {
-    console.log(e)
+    const db = wx.cloud.database();
+    var app = getApp()
+    //console.log(app.globalData.openid)
+    db.collection('User').where({
+      user_id: app.globalData.openid
+    }).get({
+      success: (res) => {
+        if(res.data.length) {//用户已经存在
+          // 记录用户信息
+          app.globalData.Institude_id = res.data.Institude_id
+          app.globalData.user_name = res.data.user_name
+          app.globalData.head_portrait = res.data.head_portrait
+          app.globalData.student_id = res.data.student_id
+          app.globalData.mission_accept = res.data.mission_accept
+          app.globalData.mission_publish = res.data.mission_publish
+          wx.redirectTo({
+            url: '../main/main',
+          })
+        }
+        else {              //用户不存在
+          wx.redirectTo({
+            url: '../Signin/Signin',
+          })
+        }
+      },
+      fail: (res) =>{
+        console.log("No")
+      }
+    })
   },
 
   /**
@@ -17,6 +45,13 @@ Page({
    */
   onLoad: function (options) {
     var app = getApp();
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        getApp().globalData.openid = res.result.openid
+      }
+    })
+
     // 如果未授权，则授权
     wx.getSetting({
       success: function(res) {
@@ -37,7 +72,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**
