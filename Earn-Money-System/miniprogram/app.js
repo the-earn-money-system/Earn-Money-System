@@ -4,7 +4,8 @@ App({
     openid: 'temp',
     user: {mission_accept: [],
           mission_publish: [],
-          last: ""}
+          last: "",
+          account: 0}
   },
 
   onLaunch: function () {

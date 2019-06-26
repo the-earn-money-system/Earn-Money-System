@@ -97,6 +97,7 @@ Page({
       })
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
+      var app = getApp()
       var that = this
       const res = wx.cloud.callFunction({
         name: "updataMissionState",
@@ -106,9 +107,23 @@ Page({
         },
         complete: function (e) {
           console.log(e.result)
+
+          var pay = that.data.mission.Pay
+          app.globalData.user.account = app.globalData.user.account + pay
+
+          wx.cloud.callFunction({
+            name: "addAccount",
+            data: {
+              user_id: app.globalData.openid,
+              account: app.globalData.user.account
+            },
+            complete: function(e){
+              console.log(e)
+            }
+          })
+
           //get isUserPublisher from Server
           var db = wx.cloud.database()
-          var app = getApp()
 
           db.collection('Mission').where({
             _id: app.globalData.mission_id

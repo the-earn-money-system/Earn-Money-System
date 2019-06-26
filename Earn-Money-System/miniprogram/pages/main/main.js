@@ -281,14 +281,40 @@ Page({
   button_finish: function(e){
     var app = getApp()
     var that = this
+    var mission_id = e.currentTarget.dataset.missionid
     const res = wx.cloud.callFunction({
       name: "updataMissionState",
       data: {
-        id: e.currentTarget.dataset.missionid,
+        id: mission_id,
         state: "Finished"
       },
       complete: function (e) {
         console.log(e.result)
+
+        wx.cloud.callFunction({
+          name: "getMission",
+          data:{
+            missionId: mission_id
+          },
+          complete: function(e){
+            console.log(e.result.data)
+            var pay = e.result.data.Pay
+            app.globalData.user.account = app.globalData.user.account + pay
+
+            wx.cloud.callFunction({
+              name: "addAccount",
+              data: {
+                user_id: app.globalData.openid,
+                account: app.globalData.user.account
+              },
+              complete: function (e) {
+                console.log(e)
+              }
+            })
+          }
+        })
+      
+
         //get isUserPublisher from Server
         wx.cloud.callFunction({
           name: "getAcceptedMission",        // 传递给云函数的参数
