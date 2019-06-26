@@ -46,20 +46,7 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
-      const db = wx.cloud.database()
-      //更新数据
-      console.log(this.data)
-
-      db.collection('Mission').doc(getApp().globalData.mission_id).update({
-        data:{
-          Title: this.data.missionName,
-          Time: this.data.time,
-          Pay: this.data.pay,
-          Info: this.data.detail
-        }
-      })
-      .then(console.log)
-      .catch(console.error)
+      
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
 

@@ -112,6 +112,7 @@ Page({
   button_my_mission:function(e){
     var app = getApp()
     const mission = []
+    console.log(app.globalData.user)
     for (var id in app.globalData.user.mission_accept) {
       const res = wx.cloud.callFunction({
         name: "getUserMission",
@@ -158,10 +159,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var app = getApp()
     wx.cloud.callFunction({
       name: "getUserInfo",
-      complete: function(res){
-        console.log(res)
+      complete: function (res) {
+        app.globalData.user = res.result.data[0]
+        console.log(app.globalData.user)
       }
     })
 
