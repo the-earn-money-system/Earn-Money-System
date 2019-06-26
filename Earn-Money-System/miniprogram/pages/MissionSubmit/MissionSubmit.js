@@ -46,17 +46,6 @@ Page({
       },
       complete: function (res) {
         console.log(res)
-        app.globalData.user.mission_publish.push(res.result._id)
-        wx.cloud.callFunction({
-          name: "updataMyPublish",
-          data: {
-            user_id: app.globalData.openid,
-            mission_publish: app.globalData.user.mission_publish
-          },
-          complete: function (res) {
-            console.log(res)
-          }
-        })
       }
     })
 

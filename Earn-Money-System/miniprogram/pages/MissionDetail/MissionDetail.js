@@ -61,7 +61,33 @@ Page({
         },
         complete: function(e){
           console.log(e.result)
-          checkMission()
+          //get isUserPublisher from Server
+          var db = wx.cloud.database()
+          var app = getApp()
+
+          db.collection('Mission').where({
+            _id: app.globalData.mission_id
+          }).get().then(res => {
+            console.log(res)
+
+            var check_pub = false
+            var check_re = false
+            if (res.data[0].publisher_id == app.globalData.openid)
+              check_pub = true
+            if (res.data[0].recipient_id == app.globalData.openid)
+              check_re = true
+
+            this.setData({
+              isUserPublisher: check_pub,
+              isUserAcceptter: check_re,
+              missionName: res.data[0].Title,
+              time: res.data[0].Time,
+              pay: res.data[0].Pay,
+              progress: res.data[0].state,
+              detail: res.data[0].Info,
+              mission: res.data[0]
+            })
+          })
         }
       })
     }
@@ -74,14 +100,40 @@ Page({
         },
         complete: function (e) {
           console.log(e.result)
-          checkMission()
+          //get isUserPublisher from Server
+          var db = wx.cloud.database()
+          var app = getApp()
+
+          db.collection('Mission').where({
+            _id: app.globalData.mission_id
+          }).get().then(res => {
+            console.log(res)
+
+            var check_pub = false
+            var check_re = false
+            if (res.data[0].publisher_id == app.globalData.openid)
+              check_pub = true
+            if (res.data[0].recipient_id == app.globalData.openid)
+              check_re = true
+
+            this.setData({
+              isUserPublisher: check_pub,
+              isUserAcceptter: check_re,
+              missionName: res.data[0].Title,
+              time: res.data[0].Time,
+              pay: res.data[0].Pay,
+              progress: res.data[0].state,
+              detail: res.data[0].Info,
+              mission: res.data[0]
+            })
+          })
         }
       })
     }
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
       var app = getApp()
       app.globalData.user.mission_accept.push(this.data.mission._id)
-      const res1 = wx.cloud.callFunction({
+      const res = wx.cloud.callFunction({
         name: "acceptMission",
         data: {
           id: this.data.mission._id,
@@ -90,32 +142,128 @@ Page({
         },
         complete: function (e) {
           console.log(e.result)
-          checkMission()
-        }
-      })
-      const res2 = wx.cloud.callFunction({
-        name: "updataMyAccept",
-        data:{
-          user_id: app.globalData.openid,
-          mission_accept: app.globalData.user.mission_accept
-        },
-        complete: function(e){
-          console.log(e.result)
+          //get isUserPublisher from Server
+          var db = wx.cloud.database()
+          var app = getApp()
+
+          db.collection('Mission').where({
+            _id: app.globalData.mission_id
+          }).get().then(res => {
+            console.log(res)
+
+            var check_pub = false
+            var check_re = false
+            if (res.data[0].publisher_id == app.globalData.openid)
+              check_pub = true
+            if (res.data[0].recipient_id == app.globalData.openid)
+              check_re = true
+
+            this.setData({
+              isUserPublisher: check_pub,
+              isUserAcceptter: check_re,
+              missionName: res.data[0].Title,
+              time: res.data[0].Time,
+              pay: res.data[0].Pay,
+              progress: res.data[0].state,
+              detail: res.data[0].Info,
+              mission: res.data[0]
+            })
+          })
         }
       })
     }
   },
 
   buttonCancle: function(e){
-    if (this.data.isUserPublisher) {  //当用户为发布者，按钮用于取消修改
+    if (this.data.isUserPublisher) {  //当用户为发布者，按钮用于取消发布
+      const res = wx.cloud.callFunction({
+        name: "updataMissionState",
+        data: {
+          id: this.data.mission._id,
+          state: "canceled"
+        },
+        complete: function (e) {
+          console.log(e.result)
+          //get isUserPublisher from Server
+          var db = wx.cloud.database()
+          var app = getApp()
+
+          db.collection('Mission').where({
+            _id: app.globalData.mission_id
+          }).get().then(res => {
+            console.log(res)
+
+            var check_pub = false
+            var check_re = false
+            if (res.data[0].publisher_id == app.globalData.openid)
+              check_pub = true
+            if (res.data[0].recipient_id == app.globalData.openid)
+              check_re = true
+
+            this.setData({
+              isUserPublisher: check_pub,
+              isUserAcceptter: check_re,
+              missionName: res.data[0].Title,
+              time: res.data[0].Time,
+              pay: res.data[0].Pay,
+              progress: res.data[0].state,
+              detail: res.data[0].Info,
+              mission: res.data[0]
+            })
+          })
+        }
+      })
     }
-    else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
+    else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于取消接受
+      var app = getApp()
+      const res1 = wx.cloud.callFunction({
+        name: "acceptMission",
+        data: {
+          id: this.data.mission._id,
+          recipient_id: "",
+          state: "Unfinished"
+        },
+        complete: function (e) {
+          console.log(e.result)
+          //get isUserPublisher from Server
+          var db = wx.cloud.database()
+          var app = getApp()
+
+          db.collection('Mission').where({
+            _id: app.globalData.mission_id
+          }).get().then(res => {
+            console.log(res)
+
+            var check_pub = false
+            var check_re = false
+            if (res.data[0].publisher_id == app.globalData.openid)
+              check_pub = true
+            if (res.data[0].recipient_id == app.globalData.openid)
+              check_re = true
+
+            this.setData({
+              isUserPublisher: check_pub,
+              isUserAcceptter: check_re,
+              missionName: res.data[0].Title,
+              time: res.data[0].Time,
+              pay: res.data[0].Pay,
+              progress: res.data[0].state,
+              detail: res.data[0].Info,
+              mission: res.data[0]
+            })
+          })
+        }
+      })
     }
-    else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
+    else {    //当用户不为发起者，也不为接受者，无按钮
     }
   },
 
-  checkMission: function(){
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
     //get isUserPublisher from Server
     var db = wx.cloud.database()
     var app = getApp()
@@ -143,13 +291,6 @@ Page({
         mission: res.data[0]
       })
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    checkMission()
   },
 
   /**

@@ -12,8 +12,6 @@ exports.main = async (event, context) => {
         user_id: event.user_id,
         Institute_id: event.Institute_id,
         head_portrait: event.head_portrait,
-        mission_accept: event.mission_accept,
-        mission_publish: event.mission_publish,
         student_id: event.student_id,
         user_name: event.user_name,
         account: event.account,

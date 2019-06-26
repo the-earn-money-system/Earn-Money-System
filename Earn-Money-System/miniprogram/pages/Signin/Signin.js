@@ -33,8 +33,6 @@ Page({
         user_id: app.globalData.openid,
         Institute_id: e.detail.value.instituteId,
         head_portrait: app.globalData.head_portrait,
-        mission_accept: [],
-        mission_publish: [],
         student_id: e.detail.value.studentid,
         user_name: app.globalData.user_name,
         account: 10,
