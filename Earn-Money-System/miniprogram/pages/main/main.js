@@ -16,10 +16,10 @@ Page({
     //               ,{mission:"2",info:"任务2"}
     //               ,{mission: "3",info: "任务3" }
     //               ,{mission: "4",info: "任务4" }],
-    //mission_array:[{title:"任务1"}
-    //              ,{title:"任务2"}
-    //              ,{title:"任务3" }
-    //              ,{title:"任务4" }]
+    mission_array:[{title:"任务1"}
+                 ,{title:"任务2"}
+                 ,{title:"任务3" }
+                 ,{title:"任务4" }],
     all_mission_array:[],
     my_mission_array:[],
     user: null
@@ -50,7 +50,7 @@ Page({
 
   mission_accept:function(e){
     var app = getApp()
-    const mission = []
+    var mission = []
     for (var id in app.globalData.user.mission_accept) {
       const res = wx.cloud.callFunction({
         name: "getUserMission",
@@ -66,7 +66,9 @@ Page({
     this.setData({
       my_mission_array: mission
     })
-    console.log(this.data.my_mission_array)
+    console.log("--------------分割")
+    console.log(this.data)
+    console.log("--------------分割")
   },
 
   mission_release:function(e){
