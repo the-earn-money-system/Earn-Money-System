@@ -11,7 +11,7 @@ Page({
       disabled:true,
       missionName:"Temp",
       time:"temp",
-      pay:"temp",
+      pay:0,
       progress:"temp",
       detail:"temp",
       mission: null,
@@ -97,7 +97,7 @@ Page({
       const res = wx.cloud.callFunction({
         name: "updataMissionState",
         data: {
-          id: that.data.mission._id,
+          id: this.data.mission._id,
           state: "Finished"
         },
         complete: function (e) {
