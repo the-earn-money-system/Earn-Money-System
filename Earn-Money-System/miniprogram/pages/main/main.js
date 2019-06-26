@@ -50,46 +50,36 @@ Page({
 
   mission_accept:function(e){
     var app = getApp()
+    var that = this
     var mission = []
-    for (var id in app.globalData.user.mission_accept) {
-      const res = wx.cloud.callFunction({
-        name: "getUserMission",
-        // 传递给云函数的参数
-        data: {
-          missionId: app.globalData.user.mission_accept[id]
-        },
-        complete: function (res) {
-          mission.push(res.result.data)
-        }
+    wx.cloud.callFunction({
+      name: "getAcceptedMission",        // 传递给云函数的参数
+      data: {
+        user_id: app.globalData.openid
+      },
+    }).then(res =>{
+      that.setData({
+        my_mission_array: res.result.data
       })
-    }
-    this.setData({
-      my_mission_array: mission
+      console.log(res.result.data)
     })
-    console.log("--------------分割")
-    console.log(this.data)
-    console.log("--------------分割")
   },
 
   mission_release:function(e){
     var app = getApp()
-    const mission = []
-    for (var id in app.globalData.user.mission_publish) {
-      const res = wx.cloud.callFunction({
-        name: "getUserMission",
-        // 传递给云函数的参数
-        data: {
-          missionId: app.globalData.user.mission_publish[id]
-        },
-        complete: function (res) {
-          mission.push(res.result.data)
-        }
+    var that = this
+    var mission = []
+    wx.cloud.callFunction({
+      name: "getPublishedMission",        // 传递给云函数的参数
+      data: {
+        user_id: app.globalData.openid
+      },
+    }).then(res =>{
+      that.setData({
+        my_mission_array: res.result.data
       })
-    }
-    this.setData({
-      my_mission_array: mission
+      console.log(res.result.data)
     })
-    console.log(this.data.my_mission_array)
   },
 
   order_select:function(e){
@@ -113,24 +103,19 @@ Page({
 
   button_my_mission:function(e){
     var app = getApp()
-    const mission = []
-    console.log(app.globalData.user)
-    for (var id in app.globalData.user.mission_accept) {
-      const res = wx.cloud.callFunction({
-        name: "getUserMission",
-        // 传递给云函数的参数
-        data: {
-          missionId: app.globalData.user.mission_accept[id]
-        },
-        complete: function (res) {
-          mission.push(res.result.data)
-        }
+    var that = this
+    var mission = []
+    wx.cloud.callFunction({
+      name: "getAcceptedMission",        // 传递给云函数的参数
+      data: {
+        user_id: app.globalData.openid
+      },
+    }).then(res => {
+      that.setData({
+        my_mission_array: res.result.data
       })
-    }
-    this.setData({
-      my_mission_array: mission
+      console.log(res.result.data)
     })
-    console.log(this.data.my_mission_array)
 
     this.setData({
       visible_main: "display:block",

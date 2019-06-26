@@ -31,6 +31,7 @@ Page({
     }
 
     var app = getApp()
+    var publisher = app.globalData.openid
 
     wx.cloud.callFunction({
       name: "addMission",
@@ -58,6 +59,13 @@ Page({
         })
       }
     })
+
+    // wx.cloud.callFunction({
+    //   name: "updataUser",
+    //   data: {
+    //     mission_publish.push()
+    //   }
+    // })
 
     wx.redirectTo({
       url: '../MissonSubmitComplete/MissonSubmitComplete',
