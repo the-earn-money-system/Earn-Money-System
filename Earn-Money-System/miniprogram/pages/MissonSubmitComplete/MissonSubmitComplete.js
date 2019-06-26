@@ -8,6 +8,17 @@ Page({
 
   },
 
+  submitMission: function(e){
+    wx.redirectTo({
+      url: '../MissionSubmit/MissionSubmit',
+    })
+  },
+
+  backToHome: function(e){
+    wx.redirectTo({
+      url: '../main/main',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

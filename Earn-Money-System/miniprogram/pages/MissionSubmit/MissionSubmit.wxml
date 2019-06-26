@@ -9,12 +9,22 @@
     <form class="mission-submit-form" bindsubmit='missionSubmit' bindreset='missionReset'>
       <view class="mission-info-view">
         <view class="mission-info-line">
-          <text class="mission-info-text">任务信息1</text>
-          <textarea class="mission-info-input" name="mission-info-input1"></textarea>
+          <text class="mission-info-text">标题</text>
+          <input class="mission-info-input" name="title"></input>
         </view>
         <view class="mission-info-line">
-          <text class="mission-info-text">任务信息2</text>
-          <textarea class="mission-info-input" name="mission-info-input2"></textarea>
+          <text class="mission-info-text">截止时间</text>
+          <picker mode='date' start="2019-06-26" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
+            <view>{{time}}</view>
+          </picker>
+        </view>
+        <view class="mission-info-line">
+          <text class="mission-info-text">报酬(单位:元)</text>
+          <input class="mission-info-input" name="pay"></input>
+        </view>
+         <view class="mission-info-area">
+          <text class="mission-info-text">任务详情</text>
+          <textarea class="mission-info-input" name="info"></textarea>
         </view>
       </view>
       <view class="button-view">

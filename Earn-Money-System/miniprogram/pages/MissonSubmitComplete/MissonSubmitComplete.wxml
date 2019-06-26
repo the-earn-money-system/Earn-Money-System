@@ -10,8 +10,8 @@
       <text id="Mission-Submit-Complete-text">发布完成</text>
     </view>
     <view class="button-view">
-      <button class="mission-complete-button" id="submitOtherMission">发布其它任务</button>
-      <button class="mission-complete-button" id="backToHome">回到首页</button>
+      <button class="mission-complete-button" id="submitOtherMission" bindtap='submitMission'>发布其它任务</button>
+      <button class="mission-complete-button" id="backToHome" bindtap='backToHome'>回到首页</button>
     </view>
   </view>
 </view>

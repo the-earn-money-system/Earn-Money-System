@@ -5,11 +5,45 @@ Page({
    * 页面的初始数据
    */
   data: {
-    topbartitleinfo: "发布任务"
+    topbartitleinfo: "发布任务",
+    time: "2019-06-26"
+  },
+
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      time: e.detail.value
+    })
   },
 
   missionSubmit: function (e) {
-    console.log(e.detail.value);
+    console.log(e.detail.value)
+    if(e.detail.value.title==""){
+      console.error("Title can not be empty")
+      return
+    }
+
+    var app = getApp()
+
+    wx.cloud.callFunction({
+      name: "addMission",
+      data: {
+        Title: e.detail.value.title,
+        Time: e.detail.value.time,
+        Pay: e.detail.value.pay,
+        Info: e.detail.value.info,
+        publisher_id: app.globalData.openid,
+        state: "Unfinished",
+        recipient_id: ""
+      },
+      complete: function (res) {
+        console.log(res)
+      }
+    })
+
+    wx.redirectTo({
+      url: '../MissonSubmitComplete/MissonSubmitComplete',
+    })
   },
 
   missionReset: function (e) {
