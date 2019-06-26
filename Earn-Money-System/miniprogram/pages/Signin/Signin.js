@@ -21,7 +21,10 @@ Page({
 
   SigninSubmitForm: function (e) {
     var app = getApp()
-
+    if (e.detail.value.studentid==""){
+      console.error("学号不能为空")
+      return
+    }
     wx.cloud.callFunction({
       name: "addUser",
       data: {
