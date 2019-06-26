@@ -14,6 +14,7 @@ Page({
       pay:"temp",
       progress:"temp",
       detail:"temp",
+      mission: null,
 
       compileButton:false
   },
@@ -46,13 +47,59 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
-      
+      const res = wx.cloud.callFunction({
+        name: "updataMission",
+        data: {
+          id: this.data.mission._id,
+          Info: this.data.detail,
+          Pay: this.data.pay,
+          Time: this.data.time,
+          Title: this.data.missionName,
+          publisher_id: this.data.mission.publisher_id,
+          recipient_id: this.data.mission.recipient_id,
+          state: this.data.progress
+        },
+        complete: function(e){
+          console.log("发布者" + e.result)
+        }
+      })
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
-
+      const res = wx.cloud.callFunction({
+        name: "updataMission",
+        data: {
+          id: this.data.mission._id,
+          Info: this.data.mission.Info,
+          Pay: this.data.mission.Pay,
+          Time: this.data.mission.Time,
+          Title: this.data.mission.Title,
+          publisher_id: this.data.mission.publisher_id,
+          recipient_id: this.data.mission.recipient_id,
+          state: this.data.progress
+        },
+        complete: function (e) {
+          console.log("接收者" + e.result)
+        }
+      })
     }
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
-
+      var app = getApp()
+      const res = wx.cloud.callFunction({
+        name: "updataMission",
+        data: {
+          id: this.data.mission._id,
+          Info: this.data.mission.Info,
+          Pay: this.data.mission.Pay,
+          Time: this.data.mission.Time,
+          Title: this.data.mission.Title,
+          publisher_id: this.data.mission.publisher_id,
+          recipient_id: app.globalData.openid,
+          state: this.data.mission.state
+        },
+        complete: function (e) {
+          console.log("路人" + e.result)
+        }
+      })
     }
   },
 
@@ -84,6 +131,7 @@ Page({
         pay: res.data[0].Pay,
         progress: res.data[0].state,
         detail: res.data[0].Info,
+        mission: res.data[0]
       })
     })
   },

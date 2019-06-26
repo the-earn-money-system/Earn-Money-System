@@ -1,27 +1,20 @@
 {
   "pages": [
+    "pages/WeChatSignin/WeChatSignin",
     "pages/main/main",
     "pages/Signin/Signin",
-    "pages/openapi/openapi",
-    "pages/WeChatSignin/WeChatSignin",
     "pages/AccountBalance/AccountBalance",
     "pages/HeadPortraitModify/HeadPortraitModify",
     "pages/MissionDetail/MissionDetail",
     "pages/MissionSubmit/MissionSubmit",
     "pages/MissonSubmitComplete/MissonSubmitComplete",
-    "pages/index/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
-    "pages/databaseGuide/databaseGuide",
-    "pages/addFunction/addFunction",
-    "pages/deployFunctions/deployFunctions",
-    "pages/chooseLib/chooseLib"
+    "pages/index/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "Earn-Money-System",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"
