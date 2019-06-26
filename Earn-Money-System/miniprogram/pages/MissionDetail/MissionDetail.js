@@ -91,6 +91,10 @@ Page({
           })
         }
       })
+
+      wx.redirectTo({
+        url: '../main/main',
+      })
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
       var that = this
