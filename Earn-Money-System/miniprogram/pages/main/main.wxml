@@ -35,13 +35,13 @@
           <view wx:for="{{all_mission_array}}" wx:key="_id">
             <view class="scroll_mission">
               <view class=".info_view">
-                <button class = "info_button" bindtap="mission_info">查看详情</button>
+                <button class = "info_button" data-missionId="{{item._id}}" bindtap="mission_info">查看详情</button>
               </view>
               <view class="mission_view">
                 <text class="mission_info_text">{{item.Title}}</text>
               </view>
               <view class="opera_view">
-                <button class="opera_button" data-missionId="{{item.info}}" bindtap="getId">接受任务</button>
+                <button class="opera_button" data-missionId="{{item._id}}" bindtap="getId">接受任务</button>
               </view>
             </view>
           </view>
@@ -50,7 +50,7 @@
 
       <scroll-view scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
         <view class="scroll-y">
-          <view wx:for-items="{{my_mission_array}}" wx:key="_id">
+          <view wx:for-items="{{mission_array}}" wx:key="_id">
             <view class="scroll_mission">
               <view class=".info_view">
                 <button class = "info_button" bindtap="mission_info">查看详情</button>

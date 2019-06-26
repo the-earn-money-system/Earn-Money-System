@@ -10,7 +10,7 @@
       <text>任务名称:</text><input class="mission-detail-info" disabled='{{disabled}}' value='{{missionName}}' name="missionName"></input>
       <text>时间：</text>
         <view class="mission-detail-info" >
-          <picker mode='date' start="2019-06-01" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
+          <picker mode='date' start="2019-06-01" end="2077-07-07" disabled='{{disabled}}' value='{{time}}' name="time" bindchange="bindTimeChange" >
             <view>{{time}}</view>
           </picker>
         </view>
@@ -32,7 +32,7 @@
     <view class="button-view">
       <button wx:if="{{isUserPublisher==true}}" class="mission-detail-button" id="button-cancel">取消发布</button>
       <button wx:else class="mission-detail-button" id="button-cancel">取消接受</button>
-      <button class="mission-detail-button" id="button-submit">提交任务</button>
+      <button class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
     </view>
   </view>
 </view>
