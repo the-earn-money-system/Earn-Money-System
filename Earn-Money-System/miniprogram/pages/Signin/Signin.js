@@ -41,6 +41,10 @@ Page({
         console.log(res)
       }
     })
+
+    wx.redirectTo({
+      url: '../main/main',
+    })
   },
 
 
