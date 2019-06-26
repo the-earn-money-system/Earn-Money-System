@@ -32,6 +32,7 @@ Page({
 
     var app = getApp()
     var publisher = app.globalData.openid
+    var pay = e.detail.value.pay
 
     wx.cloud.callFunction({
       name: "addMission",
@@ -46,6 +47,17 @@ Page({
       },
       complete: function (res) {
         console.log(res)
+        app.globalData.user.account = app.globalData.user.account - pay
+        wx.cloud.callFunction({
+          name: "addAccount",
+          data: {
+            user_id: app.globalData.openid,
+            account: app.globalData.user.account
+          },
+          complete: function (e) {
+            console.log(e)
+          }
+        })
       }
     })
 
