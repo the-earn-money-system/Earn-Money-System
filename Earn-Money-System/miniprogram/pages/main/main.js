@@ -1,3 +1,4 @@
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -173,6 +174,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var time = util.formatTime(new Date())
     var app = getApp()
     wx.cloud.callFunction({
       name: "login",
@@ -189,7 +191,21 @@ Page({
       },
       complete: function (res) {
         app.globalData.user = res.result.data[0]
-        console.log(app.globalData.user)
+        var newAccount = app.globalData.user.account + 1
+        console.log(newAccount)
+        if (time > app.globalData.user.last) {
+          wx.cloud.callFunction({
+            name: "bonus",
+            data: {
+              user_id: app.globalData.openid,
+              account: newAccount,
+              last: time
+            },
+            complete: function (res) {
+              console.log(res)
+            }
+          })
+        }
       }
     })
 

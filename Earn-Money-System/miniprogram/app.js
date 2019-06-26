@@ -3,7 +3,8 @@ App({
   globalData:{
     openid: 'temp',
     user: {mission_accept: [],
-          mission_publish: []}
+          mission_publish: [],
+          last: ""}
   },
 
   onLaunch: function () {
