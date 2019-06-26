@@ -202,7 +202,15 @@ Page({
               last: time
             },
             complete: function (res) {
-              console.log(res)
+              wx.cloud.callFunction({
+                name: "getUserInfo",
+                data: {
+                  user_id: app.globalData.openid
+                },
+                complete:function(res){
+                  app.globalData.user = res.result.data[0]
+                }
+              })
             }
           })
         }
