@@ -65,13 +65,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var app = getApp();
-    wx.cloud.callFunction({
-      name: "login",
-      success: function(res){
-        getApp().globalData.openid = res.result.openid
-      }
-    })
+    // var app = getApp();
+    // wx.cloud.callFunction({
+    //   name: "login",
+    //   success: function(res){
+    //     getApp().globalData.openid = res.result.openid
+    //   }
+    // })
   },
 
   /**
