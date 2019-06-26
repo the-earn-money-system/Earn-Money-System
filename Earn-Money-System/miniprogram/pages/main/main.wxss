@@ -56,7 +56,7 @@
   padding: 2rpx;
   margin-left: 10rpx;
   margin-right: 5rpx;
-  font-size: 30rpx;
+  font-size: 50rpx;
   text-align: center;
   background-color: white;
   display: flex;

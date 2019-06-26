@@ -71,16 +71,15 @@
 
     <view class="main_body" style="{{visible_info}}">
       <view class="main_userInfo">
-        <image class="circle"></image>
-        <text class="userinfo">信息</text>
+        <image class="circle" src="{{profile_picture}}"></image>
+        <text class="userinfo">{{user_name}}</text>
       </view>
       <view class="main_userOpea">
         <view class="change_name">
-          <button>修改昵称</button>
-          <input placeholder="最大不超过8个字符" bindinput="changeInput"></input>
+          <text>学院:{{Institute_name}}</text>
         </view>
-        <button class="user_button">修改头像</button>
-        <button class="user_button">查看账户信息</button>
+        <button class="user_button">学号:{{student_id}}</button>
+        <button class="user_button">余额:{{account}}</button>
         <button class="user_button">退出登录</button>
       </view>
     </view>

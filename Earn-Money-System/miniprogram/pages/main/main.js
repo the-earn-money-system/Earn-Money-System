@@ -22,7 +22,13 @@ Page({
                  ,{title:"任务4" }],
     all_mission_array:[],
     my_mission_array:[],
-    user: null
+    user: null,
+
+    user_name: "Null",
+    profile_picture: null,
+    account:0,
+    student_id:0,
+    Institute_name:"Null"
   },
   submitMission: function(e){
     wx.navigateTo({
@@ -126,6 +132,27 @@ Page({
   },
 
   button_my_info:function(e){
+    var app = getApp()
+    var instituteId = ""
+    var that = this
+
+  console.log(app.globalData.user)
+    wx.cloud.callFunction({
+      name: "getInstitude",        // 传递给云函数的参数
+      data: {
+        institute_id: app.globalData.user.Institute_id
+      },
+    }).then(res => {
+      console.log(res.result.data.name)
+      that.setData({
+        user_name: app.globalData.user.user_name,
+        account: app.globalData.user.account,
+        student_id: app.globalData.user.student_id,
+        profile_picture: app.globalData.user.head_portrait,
+        Institute_name: res.result.data.name
+      })
+    })
+
     this.setData({
       visible_main: "display:none",
       visible_info: "display:block",
