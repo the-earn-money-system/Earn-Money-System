@@ -1,7 +1,9 @@
 //app.js
 App({
   globalData:{
-    openid: 'temp'
+    openid: 'temp',
+    user: {mission_accept: [],
+          mission_publish: []}
   },
 
   onLaunch: function () {

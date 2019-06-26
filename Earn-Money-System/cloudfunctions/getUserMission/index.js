@@ -7,15 +7,7 @@ cloud.init()
 exports.main = async (event, context) => {
   const db = cloud.database()
   try {
-    const mission = []
-    for (var id in event_missionId) {
-      db.collection("mission").doc(id).get({
-        success: function (res) {
-          mission.push(res.data)
-        }
-      })
-    }
-    return mission
+    return db.collection("Mission").doc(event.missionId).get()
   } catch (e) {
     console.log(e)
   }

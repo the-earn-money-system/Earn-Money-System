@@ -49,11 +49,45 @@ Page({
   },
 
   mission_accept:function(e){
-    console.log("accept")
+    var app = getApp()
+    const mission = []
+    for (var id in app.globalData.user.mission_accept) {
+      const res = wx.cloud.callFunction({
+        name: "getUserMission",
+        // 传递给云函数的参数
+        data: {
+          missionId: app.globalData.user.mission_accept[id]
+        },
+        complete: function (res) {
+          mission.push(res.result.data)
+        }
+      })
+    }
+    this.setData({
+      my_mission_array: mission
+    })
+    console.log(this.data.my_mission_array)
   },
 
   mission_release:function(e){
-    console.log("release")
+    var app = getApp()
+    const mission = []
+    for (var id in app.globalData.user.mission_publish) {
+      const res = wx.cloud.callFunction({
+        name: "getUserMission",
+        // 传递给云函数的参数
+        data: {
+          missionId: app.globalData.user.mission_accept[id]
+        },
+        complete: function (res) {
+          mission.push(res.result.data)
+        }
+      })
+    }
+    this.setData({
+      my_mission_array: mission
+    })
+    console.log(this.data.my_mission_array)
   },
 
   order_select:function(e){
@@ -76,13 +110,25 @@ Page({
   },
 
   button_my_mission:function(e){
-    const res = wx.cloud.callFunction({
-      name: "getUserMission",
-      // 传递给云函数的参数
-      data: {
-        
-      }
+    var app = getApp()
+    const mission = []
+    for (var id in app.globalData.user.mission_accept) {
+      const res = wx.cloud.callFunction({
+        name: "getUserMission",
+        // 传递给云函数的参数
+        data: {
+          missionId: app.globalData.user.mission_accept[id]
+        },
+        complete: function (res) {
+          mission.push(res.result.data)
+        }
+      })
+    }
+    this.setData({
+      my_mission_array:mission
     })
+    console.log(this.data.my_mission_array)
+    
     this.setData({
       visible_main: "display:block",
       visible_info: "display:none",
@@ -108,10 +154,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var app = getApp()
     wx.cloud.callFunction({
       name: "getUserInfo",
       complete: function(res){
-        console.log(res)
+        app.globalData.user = res.result.data[0]
+        console.log(app.globalData.user)
       }
     })
   },
