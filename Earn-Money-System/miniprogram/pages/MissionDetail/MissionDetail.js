@@ -61,6 +61,7 @@ Page({
         },
         complete: function(e){
           console.log(e.result)
+          checkMission()
         }
       })
     }
@@ -73,6 +74,7 @@ Page({
         },
         complete: function (e) {
           console.log(e.result)
+          checkMission()
         }
       })
     }
@@ -88,6 +90,7 @@ Page({
         },
         complete: function (e) {
           console.log(e.result)
+          checkMission()
         }
       })
       const res2 = wx.cloud.callFunction({
@@ -103,10 +106,16 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  buttonCancle: function(e){
+    if (this.data.isUserPublisher) {  //当用户为发布者，按钮用于取消修改
+    }
+    else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
+    }
+    else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
+    }
+  },
+
+  checkMission: function(){
     //get isUserPublisher from Server
     var db = wx.cloud.database()
     var app = getApp()
@@ -134,6 +143,13 @@ Page({
         mission: res.data[0]
       })
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    checkMission()
   },
 
   /**
