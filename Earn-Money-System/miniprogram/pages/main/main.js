@@ -136,7 +136,30 @@ Page({
   },
 
   order_select:function(e){
-    console.log("order")
+    console.log(e)
+    if (this.data.index == 0) {         // time order
+      const db = wx.cloud.database()
+      db.collection('Mission').get().then(res => {
+        this.setData({
+          all_mission_array: res.data
+        })
+      })
+    } else if (this.data.index == 1) {  //pay order
+      var compare=function (property){
+        return function(a,b){
+          var v1 = a[property];
+          var v2 = b[property];
+          return v1 - v2
+        }
+      }
+
+      const db = wx.cloud.database()
+      db.collection('Mission').get().then(res => {
+        this.setData({
+          all_mission_array: res.data.sort(compare("Pay"))
+        })
+      })
+    }
   },
 
   button_mainpage:function(e){
