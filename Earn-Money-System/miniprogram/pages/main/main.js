@@ -29,7 +29,9 @@ Page({
     profile_picture: null,
     account:0,
     student_id:0,
-    Institute_name:"Null"
+    Institute_name:"Null",
+
+    accept_or_publish: true
   },
   submitMission: function(e){
     wx.navigateTo({
@@ -80,6 +82,11 @@ Page({
     var app = getApp()
     var that = this
     var mission = []
+
+    this.setData({
+      accept_or_publish: true
+    })
+
     wx.cloud.callFunction({
       name: "getAcceptedMission",        // 传递给云函数的参数
       data: {
@@ -97,6 +104,11 @@ Page({
     var app = getApp()
     var that = this
     var mission = []
+
+    this.setData({
+      accept_or_publish: false
+    })
+
     wx.cloud.callFunction({
       name: "getPublishedMission",        // 传递给云函数的参数
       data: {
