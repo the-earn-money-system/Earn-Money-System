@@ -19,8 +19,8 @@
           </picker>
         </view>
         <view class="mission-info-line">
-          <text class="mission-info-text">报酬(单位:元)</text>
-          <input class="mission-info-input" name="pay"></input>
+          <text class="mission-info-text">报酬(积分)</text>
+          <input type="number" class="mission-info-input" name="pay"></input>
         </view>
          <view class="mission-info-area">
           <text class="mission-info-text">任务详情</text>
