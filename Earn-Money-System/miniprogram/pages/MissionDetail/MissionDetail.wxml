@@ -5,8 +5,10 @@
     <text class="topbar-title" >{{topbartitleinfo}}</text>
     <button class="quit">退出</button>
   </view>
+  
   <view class="mainbar">
     <form id="Mission-Detail-view" bindsubmit='recompileMissionForm'>
+    <view class="main-view">
       <text>任务名称:</text><input class="mission-detail-info" disabled='{{disabled}}' value='{{missionName}}' name="missionName"></input>
       <text>时间：</text>
         <view class="mission-detail-info" >
@@ -20,12 +22,13 @@
         <input class="mission-detail-info" disabled='true' value='{{progress}}' name="progress"></input>
       <text>详情：</text>
         <textarea class="mission-detail-info" disabled='{{disabled}}' id="detail" value='{{detail}}' name="detail"></textarea>
-    <view id="recompile-mission-check" wx:if="{{isUserPublisher==true}}">
-      <view wx:if="{{compileButton}}">
-        <button id="recompile-mission-button" form-type="submit">确认</button>   
-      </view>
-      <view wx:else>
-        <button wx:if="{{progress!='Finished'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+      <view id="recompile-mission-check" wx:if="{{isUserPublisher==true}}">
+        <view wx:if="{{compileButton}}">
+          <button id="recompile-mission-button" form-type="submit">确认</button>   
+        </view>
+        <view wx:else>
+          <button wx:if="{{progress!='Finished'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+        </view>
       </view>
     </view>
     </form> 

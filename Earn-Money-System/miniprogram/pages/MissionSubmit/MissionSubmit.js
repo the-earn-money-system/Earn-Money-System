@@ -34,6 +34,11 @@ Page({
     var publisher = app.globalData.openid
     var pay = e.detail.value.pay
 
+    if (pay > app.globalData.user.account){
+      console.log("account")
+      return
+    }
+
     wx.cloud.callFunction({
       name: "addMission",
       data: {
@@ -60,13 +65,6 @@ Page({
         })
       }
     })
-
-    // wx.cloud.callFunction({
-    //   name: "updataUser",
-    //   data: {
-    //     mission_publish.push()
-    //   }
-    // })
 
     wx.redirectTo({
       url: '../MissonSubmitComplete/MissonSubmitComplete',
