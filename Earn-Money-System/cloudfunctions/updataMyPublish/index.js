@@ -4,13 +4,17 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 
 // 云函数入口函数
-exports.main = (event, context) => {
+exports.main = async (event, context) => {
   const db = cloud.database()
-  try{
+  try {
     return db.collection('User').where({
       user_id: event.user_id
-    }).get()
-  }catch (e){
+    }).update({
+      data: {
+        mission_publish: event.mission_publish
+      }
+    })
+  } catch (e) {
     console.log(e)
   }
 }

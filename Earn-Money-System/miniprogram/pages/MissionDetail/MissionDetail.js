@@ -47,7 +47,7 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
-      const res = wx.cloud.callFunction({
+      const res1 = wx.cloud.callFunction({
         name: "updataMission",
         data: {
           id: this.data.mission._id,
@@ -60,7 +60,7 @@ Page({
           state: this.data.progress
         },
         complete: function(e){
-          console.log("发布者" + e.result)
+          console.log(e.result)
         }
       })
     }
@@ -72,22 +72,31 @@ Page({
           state: this.data.progress
         },
         complete: function (e) {
-          console.log("接收者" + e.result)
+          console.log(e.result)
         }
       })
     }
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
       var app = getApp()
       app.globalData.user.mission_accept.push(this.data.mission._id)
-      const res = wx.cloud.callFunction({
+      const res1 = wx.cloud.callFunction({
         name: "acceptMission",
         data: {
           id: this.data.mission._id,
-          recipient_id: app.globalData.openid,
-          mission_accept: app.globalData.user.mission_accept
+          recipient_id: app.globalData.openid
         },
         complete: function (e) {
-          console.log("路人" + e.result)
+          console.log(e.result)
+        }
+      })
+      const res2 = wx.cloud.callFunction({
+        name: "updataMyAccept",
+        data:{
+          user_id: app.globalData.openid,
+          mission_accept: app.globalData.user.mission_accept
+        },
+        complete: function(e){
+          console.log(e.result)
         }
       })
     }
