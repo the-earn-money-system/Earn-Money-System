@@ -170,10 +170,10 @@ Page({
     })
   },
 
-  modifyInfo: function(e){
+  button_modify_info: function(e){
     wx.navigateTo({
       url: '../ModifyInfo/ModifyInfo',
-    }) 
+    })
   },
 
   /**

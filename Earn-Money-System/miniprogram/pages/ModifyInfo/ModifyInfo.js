@@ -26,12 +26,24 @@ Page({
 
   SigninSubmitForm: function (e) {
     var app = getApp()
-    var time = util.formatTime(new Date())
     if (e.detail.value.studentid==""){
       console.error("学号不能为空")
       return
     }
-    
+    console.log(e.detail.value)
+    wx.cloud.callFunction({
+      name: "updataUser",
+      data: {
+        _id: app.globalData.openid,
+        Institute_id: e.detail.value.instituteId,
+        head_portrait: app.globalData.head_portrait,
+        student_id: e.detail.value.studentid,
+        user_name: app.globalData.user_name
+      },
+      complete: function(res){
+        console.log(res)
+      }
+    })
 
     wx.redirectTo({
       url: '../main/main',
