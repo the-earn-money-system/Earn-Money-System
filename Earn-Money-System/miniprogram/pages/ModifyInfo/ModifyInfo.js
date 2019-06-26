@@ -30,7 +30,7 @@ Page({
       console.error("学号不能为空")
       return
     }
-    console.log(e.detail.value)
+    console.log(app.globalData.openid)
     wx.cloud.callFunction({
       name: "updataUser",
       data: {

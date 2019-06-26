@@ -7,7 +7,9 @@ cloud.init()
 exports.main = async (event, context) => {
   const db = cloud.database()
   try {
-    return db.collection('User').doc(event._id).update({
+    return db.collection('User').where({
+      user_id: event.user_id
+    }).update({
       data: {
         Institute_id: event.Institute_id,
         head_portrait: event.head_portrait,
