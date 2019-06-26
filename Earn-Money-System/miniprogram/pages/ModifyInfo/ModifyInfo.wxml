@@ -17,7 +17,7 @@
         </picker>
       </view>
       <view class="studentid-input signin-line">
-          <text class="id-text">学号：</text><input class="id-input" name="studentid" value='{{studentid}}'></input>
+          <text class="id-text">学号：</text><input type="number" class="id-input" name="studentid" value='{{studentid}}'></input>
       </view>
       <button class="Signin-submit" form-type='submit'>确认修改</button>
     </form>
