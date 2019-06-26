@@ -161,7 +161,18 @@ Page({
   onLoad: function (options) {
     var app = getApp()
     wx.cloud.callFunction({
+      name: "login",
+      complete: function(res){
+        app.globalData.openid = res.result.openid
+        console.log(res.result.openid)
+      }
+    })
+    
+    wx.cloud.callFunction({
       name: "getUserInfo",
+      data:{
+        user_id: app.globalData.openid
+      },
       complete: function (res) {
         app.globalData.user = res.result.data[0]
         console.log(app.globalData.user)
