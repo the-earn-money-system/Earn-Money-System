@@ -39,6 +39,29 @@ Page({
 
   getId: function(e){
     console.log(e.currentTarget.dataset.missionid)
+    var app = getApp()
+    app.globalData.user.mission_accept.push(e.currentTarget.dataset.missionid)
+    const res1 = wx.cloud.callFunction({
+      name: "acceptMission",
+      data: {
+        id: e.currentTarget.dataset.missionid,
+        recipient_id: app.globalData.openid,
+        state: "Accepted"
+      },
+      complete: function (e) {
+        console.log(e.result)
+      }
+    })
+    const res2 = wx.cloud.callFunction({
+      name: "updataMyAccept",
+      data: {
+        user_id: app.globalData.openid,
+        mission_accept: app.globalData.user.mission_accept
+      },
+      complete: function (e) {
+        console.log(e.result)
+      }
+    })
   },
 
   search_submit:function(e){

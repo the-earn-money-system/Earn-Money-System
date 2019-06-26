@@ -9,7 +9,8 @@ exports.main = async (event, context) => {
   try {
     return db.collection('Mission').doc(event.id).update({
       data: {
-        recipient_id: event.recipient_id
+        recipient_id: event.recipient_id,
+        state: event.state
       }
     })
   } catch (e) {

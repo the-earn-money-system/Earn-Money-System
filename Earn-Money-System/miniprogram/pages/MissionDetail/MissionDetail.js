@@ -83,7 +83,8 @@ Page({
         name: "acceptMission",
         data: {
           id: this.data.mission._id,
-          recipient_id: app.globalData.openid
+          recipient_id: app.globalData.openid,
+          state: "Accepted"
         },
         complete: function (e) {
           console.log(e.result)
