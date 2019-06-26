@@ -26,6 +26,11 @@ Page({
 
   SigninSubmitForm: function (e) {
     var app = getApp()
+    var temp_institute = app.globalData.user.Institute_id
+
+    if(this.data.click)
+      temp_institute = e.detail.value.instituteId
+
     if (e.detail.value.studentid==""){
       console.error("学号不能为空")
       return
@@ -35,7 +40,7 @@ Page({
       name: "updataUser",
       data: {
         _id: app.globalData.openid,
-        Institute_id: e.detail.value.instituteId,
+        Institute_id: temp_institute,
         head_portrait: app.globalData.head_portrait,
         student_id: e.detail.value.studentid,
         user_name: app.globalData.user_name
@@ -43,7 +48,7 @@ Page({
       complete: function(res){
         console.log(res)
       }
-    })
+    }) 
 
     wx.redirectTo({
       url: '../main/main',
