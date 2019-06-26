@@ -259,3 +259,18 @@
   justify-content: center;
   border: 0;
 }
+
+#submit-mission {
+  position: absolute;
+  font-size: 40rpx;
+  width: 150rpx;
+  height: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  line-height: 150%;
+  letter-spacing: 5rpx;
+  right: 10%;
+  bottom: 15%;
+}

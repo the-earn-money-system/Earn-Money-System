@@ -24,6 +24,11 @@ Page({
     my_mission_array:[],
     user: null
   },
+  submitMission: function(e){
+    wx.navigateTo({
+      url: '../MissionSubmit/MissionSubmit',
+    })
+  },
 
   getId: function(e){
     console.log(e.currentTarget.dataset.missionid)

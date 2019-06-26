@@ -85,6 +85,8 @@
       </view>
     </view>
 
+    <button id="submit-mission" bindtap='submitMission'>发布任务</button>
+
     <view class="main_bottombar">
       <button class="bottom_button" bindtap="button_mainpage">首页</button>
       <button class="bottom_button" bindtap="button_my_mission">我的任务</button>
