@@ -80,7 +80,7 @@
         </view>
         <button class="user_button">学号:{{student_id}}</button>
         <button class="user_button">余额:{{account}}</button>
-        <button class="user_button">退出登录</button>
+        <button class="user_button">修改信息</button>
       </view>
     </view>
 
