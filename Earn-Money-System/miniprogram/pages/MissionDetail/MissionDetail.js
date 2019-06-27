@@ -1,6 +1,6 @@
 // pages/MissionDetail/MissionDetail.js
+var util = require('../../utils/util.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -15,6 +15,7 @@ Page({
       progress:"temp",
       detail:"temp",
       mission: null,
+      starttime: "2019-06-26",
 
       compileButton:false
   },
@@ -360,6 +361,10 @@ Page({
     //get isUserPublisher from Server
     var db = wx.cloud.database()
     var app = getApp()
+
+    this.setData({
+      starttime: util.formatTime(new Date())
+    })
 
     db.collection('Mission').where({
       _id: app.globalData.mission_id
