@@ -1,5 +1,7 @@
 # Front-End
 
+项目目录说明
+
 ```
 |__Earn-Money-System
     |__miniprogram  //小程序文件目录
