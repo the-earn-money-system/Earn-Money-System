@@ -27,7 +27,7 @@
           <button id="recompile-mission-button" form-type="submit">确认</button>   
         </view>
         <view wx:else>
-          <button wx:if="{{progress!='Finished' && progress!='Canceled'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+          <button wx:if="{{progress!='Finished' && progress!='Canceled' && progress!='Pass'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
         </view>
       </view>
     </view>
