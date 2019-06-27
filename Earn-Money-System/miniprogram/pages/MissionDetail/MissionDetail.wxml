@@ -38,6 +38,7 @@
       <button wx:if="{{isUserAcceptter && progress!='Finished' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
       <button wx:elif="{{isUserPublisher && progress!='Finished' && progress!='Canceled'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
       <button wx:elif="{{progress!='Finished' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
+      <button wx:elif="{{isUserPublisher && progress=='Finished'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">确认完成</button>
     </view>
   </view>
 </view>
