@@ -52,7 +52,13 @@ Page({
       var pay = Number(that.data.mission.Pay) - Number(this.data.pay)
 
       if ((app.globalData.user.account + pay) < 0){
-        console.log("account")
+        
+        wx.showToast({
+          title: "积分不足",
+          icon: "none",
+          duration: 2000
+        })
+        
         var db = wx.cloud.database()
         var app = getApp()
 

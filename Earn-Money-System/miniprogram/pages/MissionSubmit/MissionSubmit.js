@@ -35,7 +35,11 @@ Page({
     var pay = e.detail.value.pay
 
     if (pay > app.globalData.user.account){
-      console.log("account")
+      wx.showToast({
+        title: "积分不足",
+        icon: "none",
+        duration: 2000
+      })
       return
     }
 
