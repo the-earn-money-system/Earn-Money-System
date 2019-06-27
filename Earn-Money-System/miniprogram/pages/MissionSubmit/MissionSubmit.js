@@ -38,12 +38,14 @@ Page({
       console.log("account")
       return
     }
-
+    var time_temp = this.data.time
+    if(e.detail.value.time != "")
+      time_temp = e.detail.value.time
     wx.cloud.callFunction({
       name: "addMission",
       data: {
         Title: e.detail.value.title,
-        Time: e.detail.value.time,
+        Time: time_temp,
         Pay: e.detail.value.pay,
         Info: e.detail.value.info,
         publisher_id: app.globalData.openid,
