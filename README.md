@@ -1,5 +1,7 @@
 # Front-End
 
+# [文档链接](https://github.com/the-earn-money-system/Document)
+
 项目目录说明
 
 ```
