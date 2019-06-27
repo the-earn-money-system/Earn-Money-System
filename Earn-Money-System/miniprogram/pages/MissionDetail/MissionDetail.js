@@ -49,96 +49,21 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
-      var app = getApp()
-      var that = this
-      var pay = Number(that.data.mission.Pay) - Number(this.data.pay)
-
-      if ((app.globalData.user.account + pay) < 0){
-        
-        wx.showToast({
-          title: "积分不足",
-          icon: "none",
-          duration: 2000
-        })
-        
-        var db = wx.cloud.database()
+      if(this.data.mission.state != "Finished"){
         var app = getApp()
+        var that = this
+        var pay = Number(that.data.mission.Pay) - Number(this.data.pay)
 
-        db.collection('Mission').where({
-          _id: app.globalData.mission_id
-        }).get().then(res => {
-          console.log(res)
-
-          var check_pub = false
-          var check_re = false
-          if (res.data[0].publisher_id == app.globalData.openid)
-            check_pub = true
-          if (res.data[0].recipient_id == app.globalData.openid)
-            check_re = true
-
-          this.setData({
-            isUserPublisher: check_pub,
-            isUserAcceptter: check_re,
-            missionName: res.data[0].Title,
-            time: res.data[0].Time,
-            pay: res.data[0].Pay,
-            progress: res.data[0].state,
-            detail: res.data[0].Info,
-            mission: res.data[0]
+        if ((app.globalData.user.account + pay) < 0){
+          
+          wx.showToast({
+            title: "积分不足",
+            icon: "none",
+            duration: 2000
           })
-        })
-        return
-      }
-
-      console.log(pay)
-      console.log("add")
-      console.log(app.globalData.user.account)
-
-      var time = util.formatTime(new Date())
-      if(this.data.mission.state == "Expired"){
-        if (this.data.time < time)
-          this.data.progress = "Expired"
-        else{
-          if (this.data.mission.recipient_id == "")
-            this.data.progress = "Unfinished"
-          else
-            this.data.progress = "Accepted"
-        }
-      }
-
-      console.log(this.data.time)
-      console.log(time)
-      console.log(this.data.time < time)
-
-      const res1 = wx.cloud.callFunction({
-        name: "updataMission",
-        data: {
-          id: this.data.mission._id,
-          Info: this.data.detail,
-          Pay: this.data.pay,
-          Time: this.data.time,
-          Title: this.data.missionName,
-          publisher_id: this.data.mission.publisher_id,
-          recipient_id: this.data.mission.recipient_id,
-          state: this.data.progress
-        },
-        complete: function(e){
-          console.log(e.result)
-          //get isUserPublisher from Server
+          
           var db = wx.cloud.database()
-
-          app.globalData.user.account = app.globalData.user.account + pay
-          console.log(app.globalData.user.account)
-          wx.cloud.callFunction({
-            name: "addAccount",
-            data: {
-              user_id: app.globalData.openid,
-              account: app.globalData.user.account
-            },
-            complete: function (e) {
-              console.log(e)
-            }
-          })
+          var app = getApp()
 
           db.collection('Mission').where({
             _id: app.globalData.mission_id
@@ -152,7 +77,7 @@ Page({
             if (res.data[0].recipient_id == app.globalData.openid)
               check_re = true
 
-            that.setData({
+            this.setData({
               isUserPublisher: check_pub,
               isUserAcceptter: check_re,
               missionName: res.data[0].Title,
@@ -163,13 +88,132 @@ Page({
               mission: res.data[0]
             })
           })
+          return
         }
-      })
 
+          console.log(pay)
+          console.log("add")
+          console.log(app.globalData.user.account)
+
+          var time = util.formatTime(new Date())
+          if(this.data.mission.state == "Expired"){
+            if (this.data.time < time)
+              this.data.progress = "Expired"
+            else{
+              if (this.data.mission.recipient_id == "")
+                this.data.progress = "Unfinished"
+              else
+                this.data.progress = "Accepted"
+            }
+          }
+
+          console.log(this.data.time)
+          console.log(time)
+          console.log(this.data.time < time)
+
+          const res1 = wx.cloud.callFunction({
+            name: "updataMission",
+            data: {
+              id: this.data.mission._id,
+              Info: this.data.detail,
+              Pay: this.data.pay,
+              Time: this.data.time,
+              Title: this.data.missionName,
+              publisher_id: this.data.mission.publisher_id,
+              recipient_id: this.data.mission.recipient_id,
+              state: this.data.progress
+            },
+            complete: function(e){
+              console.log(e.result)
+              //get isUserPublisher from Server
+              var db = wx.cloud.database()
+
+              app.globalData.user.account = app.globalData.user.account + pay
+              console.log(app.globalData.user.account)
+              wx.cloud.callFunction({
+                name: "addAccount",
+                data: {
+                  user_id: app.globalData.openid,
+                  account: app.globalData.user.account
+                },
+                complete: function (e) {
+                  console.log(e)
+                }
+              })
+
+              db.collection('Mission').where({
+                _id: app.globalData.mission_id
+              }).get().then(res => {
+                console.log(res)
+
+                var check_pub = false
+                var check_re = false
+                if (res.data[0].publisher_id == app.globalData.openid)
+                  check_pub = true
+                if (res.data[0].recipient_id == app.globalData.openid)
+                  check_re = true
+
+                that.setData({
+                  isUserPublisher: check_pub,
+                  isUserAcceptter: check_re,
+                  missionName: res.data[0].Title,
+                  time: res.data[0].Time,
+                  pay: res.data[0].Pay,
+                  progress: res.data[0].state,
+                  detail: res.data[0].Info,
+                  mission: res.data[0]
+                })
+              })
+            }
+          })
+
+          wx.redirectTo({
+            url: '../main/main',
+          })
+      }
+      else{
+        var app = getApp()
+        var that = this
+        const res = wx.cloud.callFunction({
+          name: "updataMissionState",
+          data: {
+            id: this.data.mission._id,
+            state: "Pass"
+          },
+          complete: function (e) {
+            console.log(e.result)
+
+            var pay = Number(that.data.mission.Pay)
+
+            wx.cloud.callFunction({
+              name: "getUserInfo",
+              data: {
+                user_id: that.data.mission.recipient_id
+              },
+              complete: function (e) {
+                e.result.data[0].account = e.result.data[0].account + pay
+
+                wx.cloud.callFunction({
+                  name: "addAccount",
+                  data: {
+                    user_id: e.result.data[0].user_id,
+                    account: e.result.data[0].account
+                  },
+                  complete: function (e) {
+                    console.log(e.result)
+                  }
+                })
+              }
+            })
+          }
+              
+        })
+      }
       wx.redirectTo({
         url: '../main/main',
       })
     }
+
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于提交任务
       var app = getApp()
       var that = this
