@@ -33,11 +33,11 @@
     </view>
     </form> 
     <view class="button-view">
-      <button wx:if="{{isUserPublisher && progress!='Finished' && progress!='Canceled'}}" class="mission-detail-button" id="button-cancel" bindtap='buttonCancle'>取消发布</button>
-      <button wx:elif="{{isUserAcceptter && progress!='Finished' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-cancel" bindtap="buttonCancle">取消接受</button>
-      <button wx:if="{{isUserAcceptter && progress!='Finished' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
-      <button wx:elif="{{isUserPublisher && progress!='Finished' && progress!='Canceled'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
-      <button wx:elif="{{progress!='Finished' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
+      <button wx:if="{{isUserPublisher && progress!='Finished' && progress!='Pass' && progress!='Canceled'}}" class="mission-detail-button" id="button-cancel" bindtap='buttonCancle'>取消发布</button>
+      <button wx:elif="{{isUserAcceptter && progress!='Finished'  && progress!='Pass' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-cancel" bindtap="buttonCancle">取消接受</button>
+      <button wx:if="{{isUserAcceptter && progress!='Finished'  && progress!='Pass' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
+      <button wx:elif="{{isUserPublisher && progress!='Finished'  && progress!='Pass' && progress!='Canceled'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
+      <button wx:elif="{{progress!='Finished' && progress!='Pass' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
       <button wx:elif="{{isUserPublisher && progress=='Finished'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">确认完成</button>
     </view>
   </view>
