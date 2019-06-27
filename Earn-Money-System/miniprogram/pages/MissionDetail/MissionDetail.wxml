@@ -3,7 +3,7 @@
   <view class="topbar">
     <button class="back">返回</button>
     <text class="topbar-title" >{{topbartitleinfo}}</text>
-    <button class="quit">退出</button>
+    <navigator class="quit" open-type="exit" target="miniProgram">退出</navigator>
   </view>
   
   <view class="mainbar">
@@ -12,7 +12,7 @@
       <text>任务名称:</text><input class="mission-detail-info" disabled='{{disabled}}' value='{{missionName}}' name="missionName"></input>
       <text>时间：</text>
         <view class="mission-detail-info" >
-          <picker mode='date' start="2019-06-01" end="2077-07-07" disabled='{{disabled}}' value='{{time}}' name="time" bindchange="bindTimeChange" >
+          <picker mode='date' start="{{starttime}}" end="2077-07-07" disabled='{{disabled}}' value='{{time}}' name="time" bindchange="bindTimeChange" >
             <view>{{time}}</view>
           </picker>
         </view>

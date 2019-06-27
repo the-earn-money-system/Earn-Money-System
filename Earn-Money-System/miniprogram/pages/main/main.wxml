@@ -3,7 +3,7 @@
   <view class="topbar">
     <button class="back" style="display:none">返回</button>
     <text class="topbar-title" >{{topbartitleinfo}}</text>
-    <button class="quit" bindtap="button_quit">退出</button>
+    <navigator class="quit" open-type="exit" target="miniProgram">退出</navigator>
   </view>
 
   <view class="mainbar">
