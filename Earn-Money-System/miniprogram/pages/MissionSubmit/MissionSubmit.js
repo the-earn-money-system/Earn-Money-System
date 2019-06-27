@@ -8,6 +8,7 @@ Page({
   data: {
     topbartitleinfo: "发布任务",
     time: "2019-06-26",
+    starttime: "2019-06-26",
     mission: null
   },
   
@@ -94,7 +95,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      time: util.formatTime(new Date())
+      starttime: util.formatTime(new Date())
     })
   },
 

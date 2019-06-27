@@ -14,7 +14,7 @@
         </view>
         <view class="mission-info-line">
           <text class="mission-info-text">截止时间</text>
-          <picker mode='date' start="{{time}}" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
+          <picker mode='date' start="{{starttime}}" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
             <view>{{time}}</view>
           </picker>
         </view>
