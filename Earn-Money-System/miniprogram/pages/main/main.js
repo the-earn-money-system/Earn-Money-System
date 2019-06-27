@@ -378,7 +378,7 @@ Page({
     var app = getApp()
 
     this.setData({
-      user_id: app.globalData.user_id
+      user_id: app.globalData.openid
     })
     console.log(this.data.user_id)
     

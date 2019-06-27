@@ -41,7 +41,7 @@
                 <text class="mission_info_text">{{item.Title}}</text>
               </view>
               <view class="opera_view">
-                <button wx:if="{{item.state=='Unfinished' && item.publisher_id != '{{user_id}}'}}" class="opera_button" data-missionId="{{item._id}}" bindtap="getId">接受任务</button>
+                <button wx:if="{{item.state=='Unfinished' && item.publisher_id!=user_id}}" class="opera_button" data-missionId="{{item._id}}" bindtap="getId">接受任务</button>
               </view>
             </view>
           </view>
