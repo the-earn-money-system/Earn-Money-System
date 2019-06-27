@@ -95,7 +95,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      starttime: util.formatTime(new Date())
+      starttime: util.formatTime(new Date()),
+      time: util.formatTime(new Date())
     })
   },
 
