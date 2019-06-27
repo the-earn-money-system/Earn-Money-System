@@ -55,7 +55,7 @@ Page({
       complete: function (e) {
         console.log(e.result)
         const db = wx.cloud.database()
-        db.collection('Mission').get().then(res => {
+        db.collection('Mission').limit(100).get().then(res => {
           that.setData({
             all_mission_array: res.data
           })
@@ -139,7 +139,7 @@ Page({
   order_select:function(e){
     if (this.data.index == 0) {         // time order
       const db = wx.cloud.database()
-      db.collection('Mission').get().then(res => {
+      db.collection('Mission').limit(100).get().then(res => {
         this.setData({
           all_mission_array: res.data
         })
@@ -154,7 +154,7 @@ Page({
       }
 
       const db = wx.cloud.database()
-      db.collection('Mission').get().then(res => {
+      db.collection('Mission').limit(100).get().then(res => {
         this.setData({
           all_mission_array: res.data.sort(compare("Pay"))
         })
@@ -165,7 +165,7 @@ Page({
   button_mainpage:function(e){
     if (this.data.index == 0) {         // time order
       const db = wx.cloud.database()
-      db.collection('Mission').get().then(res => {
+      db.collection('Mission').limit(100).get().then(res => {
         this.setData({
           all_mission_array: res.data
         })
@@ -180,7 +180,7 @@ Page({
       }
 
       const db = wx.cloud.database()
-      db.collection('Mission').get().then(res => {
+      db.collection('Mission').limit(100).get().then(res => {
         this.setData({
           all_mission_array: res.data.sort(compare("Pay"))
         })
