@@ -6,7 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    Institude_id:0,
+    user_name:0,
+    head_portrait:0,
+    student_id:0
   },
 
   getUserInfo: function(e) {
@@ -20,11 +24,11 @@ Page({
         if(res.data.length) {//用户已经存在
           // 记录用户信息
           app.globalData.Institude_id = res.data.Institude_id
-          app.globalData.user_name = res.data.user_name
-          app.globalData.head_portrait = res.data.head_portrait
+          //app.globalData.user_name = res.data.user_name
+          //app.globalData.head_portrait = res.data.head_portrait
           app.globalData.student_id = res.data.student_id
-          app.globalData.mission_accept = res.data.mission_accept
-          app.globalData.mission_publish = res.data.mission_publish
+          //app.globalData.mission_accept = res.data.mission_accept
+          //app.globalData.mission_publish = res.data.mission_publish
           wx.redirectTo({
             url: '../main/main',
           })
@@ -52,7 +56,7 @@ Page({
         getApp().globalData.openid = res.result.openid
       }
     })
-
+    
     // 如果未授权，则授权
     wx.getSetting({
       success: function(res) {
@@ -65,6 +69,9 @@ Page({
             }
           })
         }
+      },
+      fail: function(res){
+        console.log("GET fail-----------------")
       }
     })
   },

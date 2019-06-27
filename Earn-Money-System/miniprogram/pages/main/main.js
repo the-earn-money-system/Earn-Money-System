@@ -432,7 +432,7 @@ Page({
       user_id: app.globalData.openid
     })
     console.log(this.data.user_id)
-    
+
     wx.cloud.callFunction({
       name: "login",
       complete: function(res){
@@ -441,6 +441,17 @@ Page({
       }
     })
     
+    wx.cloud.callFunction({
+      name: "updataUser",
+      data:{
+        user_id: app.globalData.openid
+      },
+      complete: function(res){
+        user_name: app.globalData.user_name
+        head_portrait: app.globalData.head_portrait
+      }
+    })
+
     wx.cloud.callFunction({
       name: "getUserInfo",
       data:{
