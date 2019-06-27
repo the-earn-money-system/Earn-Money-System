@@ -182,20 +182,6 @@ Page({
         complete: function (e) {
           console.log(e.result)
 
-          var pay = Number(that.data.mission.Pay)
-          app.globalData.user.account = app.globalData.user.account + pay
-
-          wx.cloud.callFunction({
-            name: "addAccount",
-            data: {
-              user_id: app.globalData.openid,
-              account: app.globalData.user.account
-            },
-            complete: function(e){
-              console.log(e)
-            }
-          })
-
           //get isUserPublisher from Server
           var db = wx.cloud.database()
 

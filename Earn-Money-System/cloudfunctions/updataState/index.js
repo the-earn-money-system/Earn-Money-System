@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
   try {
     return db.collection('Mission').where({
       Time: _.lt(event.Time),
-      state: _.neq("Finished").and(_.neq("Canceled"))
+      state: _.neq("Finished").and(_.neq("Canceled")).and(_.neq("Pass"))
     }).update({
       data: {
         state: event.state
