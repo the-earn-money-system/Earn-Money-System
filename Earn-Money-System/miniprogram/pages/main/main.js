@@ -223,7 +223,7 @@ Page({
     var instituteId = ""
     var that = this
 
-  console.log(app.globalData.user)
+    console.log(app.globalData.user)
     wx.cloud.callFunction({
       name: "getInstitude",        // 传递给云函数的参数
       data: {
@@ -478,14 +478,97 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    var app = getApp()
+    var that = this
+    var mission = []
 
+    if (this.data.index == 0) {         // time order
+      const db = wx.cloud.database()
+      db.collection('Mission').get().then(res => {
+        this.setData({
+          all_mission_array: res.data
+        })
+      })
+    } else if (this.data.index == 1) {  //pay order
+      var compare = function (property) {
+        return function (a, b) {
+          var v1 = a[property];
+          var v2 = b[property];
+          return v1 - v2
+        }
+      }
+
+      const db = wx.cloud.database()
+      db.collection('Mission').get().then(res => {
+        this.setData({
+          all_mission_array: res.data.sort(compare("Pay"))
+        })
+      })
+    }
+
+   
+
+    if (this.data.accept_or_publish){
+      wx.cloud.callFunction({
+        name: "getAcceptedMission",        // 传递给云函数的参数
+        data: {
+          user_id: app.globalData.openid
+        },
+      }).then(res => {
+        that.setData({
+          my_mission_array: res.result.data
+        })
+        console.log(res.result.data)
+      })
+    } else{
+      wx.cloud.callFunction({
+        name: "getPublishedMission",        // 传递给云函数的参数
+        data: {
+          user_id: app.globalData.openid
+        },
+      }).then(res => {
+        that.setData({
+          my_mission_array: res.result.data
+        })
+        console.log(res.result.data)
+      })
+    }
+
+    wx.cloud.callFunction({
+      name: "getUserInfo",
+      data: {
+        user_id: app.globalData.openid
+      },
+      complete: function (res) {
+        app.globalData.user = res.result.data[0]
+      }
+    })
+
+    var instituteId = ""
+
+    console.log(app.globalData.user)
+    wx.cloud.callFunction({
+      name: "getInstitude",        // 传递给云函数的参数
+      data: {
+        institute_id: app.globalData.user.Institute_id
+      },
+    }).then(res => {
+      console.log(res.result.data.name)
+      that.setData({
+        user_name: app.globalData.user.user_name,
+        account: app.globalData.user.account,
+        student_id: app.globalData.user.student_id,
+        profile_picture: app.globalData.user.head_portrait,
+        Institute_name: res.result.data.name
+      })
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    
   },
 
   /**

@@ -18,6 +18,7 @@ Page({
 
       compileButton:false
   },
+
   // 重新编辑任务信息
   recompileMission: function(e){
     this.setData({compileButton: true})
