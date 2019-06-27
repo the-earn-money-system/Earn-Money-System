@@ -1,4 +1,5 @@
 // pages/MissionDetail/MissionDetail.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -91,6 +92,23 @@ Page({
       console.log(pay)
       console.log("add")
       console.log(app.globalData.user.account)
+
+      var time = util.formatTime(new Date())
+      if(this.data.mission.state == "Expired"){
+        if (this.data.time < time)
+          this.data.progress = "Expired"
+        else{
+          if (this.data.mission.recipient_id == "")
+            this.data.progress = "Unfinished"
+          else
+            this.data.progress = "Accepted"
+        }
+      }
+
+      console.log(this.data.time)
+      console.log(time)
+      console.log(this.data.time < time)
+
       const res1 = wx.cloud.callFunction({
         name: "updataMission",
         data: {
@@ -326,22 +344,8 @@ Page({
           }).get().then(res => {
             console.log(res)
 
-            var check_pub = false
-            var check_re = false
-            if (res.data[0].publisher_id == app.globalData.openid)
-              check_pub = true
-            if (res.data[0].recipient_id == app.globalData.openid)
-              check_re = true
-
-            that.setData({
-              isUserPublisher: check_pub,
-              isUserAcceptter: check_re,
-              missionName: res.data[0].Title,
-              time: res.data[0].Time,
-              pay: res.data[0].Pay,
-              progress: res.data[0].state,
-              detail: res.data[0].Info,
-              mission: res.data[0]
+            wx.navigateTo({
+              url: '../main/main',
             })
           })
         }

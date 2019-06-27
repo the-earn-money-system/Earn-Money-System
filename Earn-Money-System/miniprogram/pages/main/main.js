@@ -422,6 +422,7 @@ Page({
         }
       }
     })
+
   },
 
   /**
@@ -456,6 +457,21 @@ Page({
         this.setData({
           all_mission_array: res.data.sort(compare("Pay"))
         })
+      })
+
+      var app = getApp()
+      var that = this
+
+      wx.cloud.callFunction({
+        name: "getAcceptedMission",        // 传递给云函数的参数
+        data: {
+          user_id: app.globalData.openid
+        },
+      }).then(res => {
+        that.setData({
+          my_mission_array: res.result.data
+        })
+        console.log(res.result.data)
       })
     }
   },

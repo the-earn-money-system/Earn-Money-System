@@ -1,4 +1,5 @@
 // pages/WeChatSignin/WeChatSignin.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -72,6 +73,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    var time = util.formatTime(new Date())
+    wx.cloud.callFunction({
+      name: "updataState",
+      data: {
+        Time: time,
+        state: "Expired"
+      },
+      complete: function (e) {
+        console.log(e)
+      }
+    })
   },
 
   /**

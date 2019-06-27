@@ -3,7 +3,7 @@ const formatTime = date => {
   const month = date.getMonth() + 1
   const day = date.getDate()
 
-  return [year, month, day].map(formatNumber).join('/')
+  return [year, month, day].map(formatNumber).join('-')
 }
 
 const formatNumber = n => {
