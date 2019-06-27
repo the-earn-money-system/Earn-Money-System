@@ -47,7 +47,44 @@ Page({
 
   buttonSubmit: function(e){
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
+      var app = getApp()
       var that = this
+      var pay = Number(that.data.mission.Pay) - Number(this.data.pay)
+
+      if ((app.globalData.user.account + pay) < 0){
+        console.log("account")
+        var db = wx.cloud.database()
+        var app = getApp()
+
+        db.collection('Mission').where({
+          _id: app.globalData.mission_id
+        }).get().then(res => {
+          console.log(res)
+
+          var check_pub = false
+          var check_re = false
+          if (res.data[0].publisher_id == app.globalData.openid)
+            check_pub = true
+          if (res.data[0].recipient_id == app.globalData.openid)
+            check_re = true
+
+          this.setData({
+            isUserPublisher: check_pub,
+            isUserAcceptter: check_re,
+            missionName: res.data[0].Title,
+            time: res.data[0].Time,
+            pay: res.data[0].Pay,
+            progress: res.data[0].state,
+            detail: res.data[0].Info,
+            mission: res.data[0]
+          })
+        })
+        return
+      }
+
+      console.log(pay)
+      console.log("add")
+      console.log(app.globalData.user.account)
       const res1 = wx.cloud.callFunction({
         name: "updataMission",
         data: {
@@ -64,7 +101,19 @@ Page({
           console.log(e.result)
           //get isUserPublisher from Server
           var db = wx.cloud.database()
-          var app = getApp()
+
+          app.globalData.user.account = app.globalData.user.account + pay
+          console.log(app.globalData.user.account)
+          wx.cloud.callFunction({
+            name: "addAccount",
+            data: {
+              user_id: app.globalData.openid,
+              account: app.globalData.user.account
+            },
+            complete: function (e) {
+              console.log(e)
+            }
+          })
 
           db.collection('Mission').where({
             _id: app.globalData.mission_id
@@ -196,7 +245,7 @@ Page({
   },
 
   buttonCancle: function(e){
-    if (this.data.isUserPublisher) {  //当用户为发布者，按钮用于取消发布
+    if (this.data.isUserPublisher & (this.data.mission.state != "Canceled")) {  //当用户为发布者，按钮用于取消发布
       var that = this
       const res = wx.cloud.callFunction({
         name: "updataMissionState",
@@ -209,6 +258,20 @@ Page({
           //get isUserPublisher from Server
           var db = wx.cloud.database()
           var app = getApp()
+
+          var pay = Number(that.data.mission.Pay)
+          app.globalData.user.account = app.globalData.user.account + pay
+
+          wx.cloud.callFunction({
+            name: "addAccount",
+            data: {
+              user_id: app.globalData.openid,
+              account: app.globalData.user.account
+            },
+            complete: function (e) {
+              console.log(e)
+            }
+          })
 
           db.collection('Mission').where({
             _id: app.globalData.mission_id
