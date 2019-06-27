@@ -59,10 +59,10 @@
                 <text class="mission_info_text">{{item.Title}}</text>
               </view>
               <view class="opera_view">
-                <button wx:if="{{accept_or_publish && item.state!='Finished' && progress!='Pass' && item.state!='Expired' && item.state!='Canceled'}}" data-missionId="{{item._id}}" class="opera_button" bindtap="button_cancel_accept">取消接受</button>
-                <button wx:elif="{{item.state!='Finished' && progress!='Pass' && item.state!='Canceled' && item.state!='Expired'}}" class="opera_button" data-missionId="{{item._id}}" bindtap="button_cancel">取消发布</button>
-                <button wx:elif="{{item.state=='Finished' && item.publisher_id==user_id && progress!='Pass'}}" class="opera_button" data-missionId="{{item._id}}" bindtap="button_commit">确认完成</button>
-                <button wx:if="{{accept_or_publish && item.state!='Finished' && progress!='Pass' && item.state!='Canceled' && item.state!='Expired'}}" data-missionId="{{item._id}}" class="opera_button" bindtap="button_finish">提交任务</button>
+                <button wx:if="{{accept_or_publish && item.state!='Finished' && item.state!='Pass' && item.state!='Expired' && item.state!='Canceled'}}" data-missionId="{{item._id}}" class="opera_button" bindtap="button_cancel_accept">取消接受</button>
+                <button wx:elif="{{item.state!='Finished' && item.state!='Pass' && item.state!='Canceled' && item.state!='Expired'}}" class="opera_button" data-missionId="{{item._id}}" bindtap="button_cancel">取消发布</button>
+                <button wx:elif="{{item.state=='Finished' && item.publisher_id==user_id && item.state!='Pass'}}" class="opera_button" data-missionId="{{item._id}}" bindtap="button_commit">确认完成</button>
+                <button wx:if="{{accept_or_publish && item.state!='Finished' && item.state!='Pass' && item.state!='Canceled' && item.state!='Expired'}}" data-missionId="{{item._id}}" class="opera_button" bindtap="button_finish">提交任务</button>
               </view>
             </view>
           </view>
