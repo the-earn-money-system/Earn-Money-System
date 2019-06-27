@@ -30,6 +30,7 @@ Page({
     account:0,
     student_id:0,
     Institute_name:"Null",
+    user_id: "temp",
 
     accept_or_publish: true
   },
@@ -375,6 +376,12 @@ Page({
   onLoad: function (options) {
     var time = util.formatTime(new Date())
     var app = getApp()
+
+    this.setData({
+      user_id: app.globalData.openid
+    })
+    console.log(this.data.user_id)
+    
     wx.cloud.callFunction({
       name: "login",
       complete: function(res){

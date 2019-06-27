@@ -46,7 +46,7 @@
 }
 
 #detail{
-  overflow: scroll;
+  overflow: hidden;
   border-bottom: 0rpx solid rgba(0, 0, 0, 0.137);
 }
 
