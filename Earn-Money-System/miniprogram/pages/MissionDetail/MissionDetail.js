@@ -164,7 +164,7 @@ Page({
         complete: function (e) {
           console.log(e.result)
 
-          var pay = that.data.mission.Pay
+          var pay = Number(that.data.mission.Pay)
           app.globalData.user.account = app.globalData.user.account + pay
 
           wx.cloud.callFunction({
