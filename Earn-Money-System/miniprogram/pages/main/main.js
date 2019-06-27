@@ -527,12 +527,22 @@ Page({
                 },
                 complete: function (res) {
                   wx.cloud.callFunction({
-                    name: "getUserInfo",
+                    name: "bonus",
                     data: {
-                      user_id: openid
+                      user_id: openid,
+                      account: newAccount,
+                      last: time
                     },
                     complete: function (res) {
-                      app.globalData.user = res.result.data[0]
+                      wx.cloud.callFunction({
+                        name: "getUserInfo",
+                        data: {
+                          user_id: openid
+                        },
+                        complete: function (res) {
+                          app.globalData.user = res.result.data[0]
+                        }
+                      })
                     }
                   })
                 }
@@ -542,7 +552,6 @@ Page({
         })
       }
     })
-    
 
   },
 

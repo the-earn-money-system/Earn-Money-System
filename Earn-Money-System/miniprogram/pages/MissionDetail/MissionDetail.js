@@ -449,6 +449,7 @@ Page({
     //get isUserPublisher from Server
     var db = wx.cloud.database()
     var app = getApp()
+    var that = this
 
     this.setData({
       starttime: util.formatTime(new Date())
@@ -472,7 +473,7 @@ Page({
           if (getMission.recipient_id == openid)
             check_re = true
 
-          this.setData({
+          that.setData({
             isUserPublisher: check_pub,
             isUserAcceptter: check_re,
             missionName: getMission.Title,

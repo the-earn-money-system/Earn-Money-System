@@ -43,7 +43,7 @@ Page({
         wx.cloud.callFunction({
           name: "updataUser",
           data: {
-            _id: openid,
+            user_id: openid,
             Institute_id: temp_institute,
             head_portrait: app.globalData.head_portrait,
             student_id: e.detail.value.studentid,

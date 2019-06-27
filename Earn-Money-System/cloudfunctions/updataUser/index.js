@@ -6,6 +6,7 @@ cloud.init()
 // 云函数入口函数
 exports.main = async (event, context) => {
   const db = cloud.database()
+  const _ = db.command
   try {
     return db.collection('User').where({
       user_id: event.user_id

@@ -6,7 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    Institude_id:0,
+    user_name:0,
+    head_portrait:0,
+    student_id:0
   },
 
   getUserInfo: function(e) {
@@ -55,6 +59,13 @@ Page({
   onLoad: function (options) {
     var app = getApp();
 
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        getApp().globalData.openid = res.result.openid
+      }
+    })
+    
     // 如果未授权，则授权
     wx.getSetting({
       success: function(res) {
@@ -67,6 +78,9 @@ Page({
             }
           })
         }
+      },
+      fail: function(res){
+        console.log("GET fail-----------------")
       }
     })
   },
@@ -129,4 +143,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+
 })
