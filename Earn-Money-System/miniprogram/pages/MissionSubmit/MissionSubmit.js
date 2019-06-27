@@ -32,7 +32,6 @@ Page({
     }
 
     var app = getApp()
-    var publisher = app.globalData.openid
     var pay = e.detail.value.pay
 
     if (pay > app.globalData.user.account){
@@ -46,32 +45,40 @@ Page({
     var time_temp = this.data.time
     if(e.detail.value.time != "")
       time_temp = e.detail.value.time
+
     wx.cloud.callFunction({
-      name: "addMission",
-      data: {
-        Title: e.detail.value.title,
-        Time: time_temp,
-        Pay: e.detail.value.pay,
-        Info: e.detail.value.info,
-        publisher_id: app.globalData.openid,
-        state: "Unfinished",
-        recipient_id: ""
-      },
-      complete: function (res) {
-        console.log(res)
-        app.globalData.user.account = app.globalData.user.account - pay
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
         wx.cloud.callFunction({
-          name: "addAccount",
+          name: "addMission",
           data: {
-            user_id: app.globalData.openid,
-            account: app.globalData.user.account
+            Title: e.detail.value.title,
+            Time: time_temp,
+            Pay: e.detail.value.pay,
+            Info: e.detail.value.info,
+            publisher_id: openid,
+            state: "Unfinished",
+            recipient_id: ""
           },
-          complete: function (e) {
-            console.log(e)
+          complete: function (res) {
+            console.log(res)
+            app.globalData.user.account = app.globalData.user.account - pay
+            wx.cloud.callFunction({
+              name: "addAccount",
+              data: {
+                user_id: openid,
+                account: app.globalData.user.account
+              },
+              complete: function (e) {
+                console.log(e)
+              }
+            })
           }
         })
       }
     })
+    
 
     wx.redirectTo({
       url: '../MissonSubmitComplete/MissonSubmitComplete',

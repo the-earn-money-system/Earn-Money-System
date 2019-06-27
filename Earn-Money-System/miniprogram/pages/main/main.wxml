@@ -8,7 +8,7 @@
 
   <view class="mainbar">
     <view class="main_body" style="{{visible_main}}">
-      <form bindsubmit="search_submit" bindreset="">
+      <form bindsubmit="search_submit" bindreset="search_reset">
         <view class="main_searchbar" style="{{visible_all_mission}}">
           <input class="search_input" placeholder="搜索任务" name="search_input"></input>
           <button class="main_button" form-type="reset">清空</button>

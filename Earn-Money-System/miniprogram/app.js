@@ -1,7 +1,6 @@
 //app.js
 App({
   globalData:{
-    openid: 'temp',
     user: {mission_accept: [],
           mission_publish: [],
           last: "",

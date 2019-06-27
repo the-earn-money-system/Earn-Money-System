@@ -27,19 +27,26 @@ Page({
       console.error("学号不能为空")
       return
     }
+
     wx.cloud.callFunction({
-      name: "addUser",
-      data: {
-        user_id: app.globalData.openid,
-        Institute_id: e.detail.value.instituteId,
-        head_portrait: app.globalData.head_portrait,
-        student_id: e.detail.value.studentid,
-        user_name: app.globalData.user_name,
-        account: 10,
-        last: time
-      },
-      complete: function (res) {
-        console.log(res)
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "addUser",
+          data: {
+            user_id: openid,
+            Institute_id: e.detail.value.instituteId,
+            head_portrait: app.globalData.head_portrait,
+            student_id: e.detail.value.studentid,
+            user_name: app.globalData.user_name,
+            account: 10,
+            last: time
+          },
+          complete: function (res) {
+            console.log(res)
+          }
+        })
       }
     })
 
@@ -74,13 +81,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // var app = getApp();
-    // wx.cloud.callFunction({
-    //   name: "login",
-    //   success: function(res){
-    //     getApp().globalData.openid = res.result.openid
-    //   }
-    // })
+    
   },
 
   /**

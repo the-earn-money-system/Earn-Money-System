@@ -35,29 +35,36 @@ Page({
       console.error("学号不能为空")
       return
     }
-    console.log(app.globalData.openid)
+    
     wx.cloud.callFunction({
-      name: "updataUser",
-      data: {
-        _id: app.globalData.openid,
-        Institute_id: temp_institute,
-        head_portrait: app.globalData.head_portrait,
-        student_id: e.detail.value.studentid,
-        user_name: app.globalData.user_name
-      },
-      complete: function(res){
-        console.log(res)
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
         wx.cloud.callFunction({
-          name: "getUserInfo",
+          name: "updataUser",
           data: {
-            user_id: app.globalData.openid
+            _id: openid,
+            Institute_id: temp_institute,
+            head_portrait: app.globalData.head_portrait,
+            student_id: e.detail.value.studentid,
+            user_name: app.globalData.user_name
           },
           complete: function (res) {
-            app.globalData.user = res.result.data[0]
+            console.log(res)
+            wx.cloud.callFunction({
+              name: "getUserInfo",
+              data: {
+                user_id: openid
+              },
+              complete: function (res) {
+                app.globalData.user = res.result.data[0]
+              }
+            })
           }
-        })
+        }) 
       }
-    }) 
+    })
+    
 
     wx.redirectTo({
       url: '../main/main',
@@ -103,13 +110,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // var app = getApp();
-    // wx.cloud.callFunction({
-    //   name: "login",
-    //   success: function(res){
-    //     getApp().globalData.openid = res.result.openid
-    //   }
-    // })
+    
   },
 
   /**

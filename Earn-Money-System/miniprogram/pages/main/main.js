@@ -45,20 +45,26 @@ Page({
     var app = getApp()
     var that = this
 
-    const res1 = wx.cloud.callFunction({
-      name: "acceptMission",
-      data: {
-        id: e.currentTarget.dataset.missionid,
-        recipient_id: app.globalData.openid,
-        state: "Accepted"
-      },
-      complete: function (e) {
-        console.log(e.result)
-        const db = wx.cloud.database()
-        db.collection('Mission').limit(100).get().then(res => {
-          that.setData({
-            all_mission_array: res.data
-          })
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "acceptMission",
+          data: {
+            id: e.currentTarget.dataset.missionid,
+            recipient_id: openid,
+            state: "Accepted"
+          },
+          complete: function (e) {
+            console.log(e.result)
+            const db = wx.cloud.database()
+            db.collection('Mission').limit(100).get().then(res => {
+              that.setData({
+                all_mission_array: res.data
+              })
+            })
+          }
         })
       }
     })
@@ -82,6 +88,15 @@ Page({
     })
   },
 
+  search_reset:function(e){
+    const db = wx.cloud.database()
+    db.collection('Mission').limit(100).get().then(res => {
+      this.setData({
+        all_mission_array: res.data.sort(compare("Pay"))
+      })
+    })
+  },
+
   bindPickerChange:function(e){
     this.setData({ 
       index: e.detail.value
@@ -102,16 +117,23 @@ Page({
     })
 
     wx.cloud.callFunction({
-      name: "getAcceptedMission",        // 传递给云函数的参数
-      data: {
-        user_id: app.globalData.openid
-      },
-    }).then(res =>{
-      that.setData({
-        my_mission_array: res.result.data
-      })
-      console.log(res.result.data)
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "getAcceptedMission",        // 传递给云函数的参数
+          data: {
+            user_id: openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
     })
+    
   },
 
   mission_release:function(e){
@@ -124,16 +146,23 @@ Page({
     })
 
     wx.cloud.callFunction({
-      name: "getPublishedMission",        // 传递给云函数的参数
-      data: {
-        user_id: app.globalData.openid
-      },
-    }).then(res =>{
-      that.setData({
-        my_mission_array: res.result.data
-      })
-      console.log(res.result.data)
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "getPublishedMission",        // 传递给云函数的参数
+          data: {
+            user_id: openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
     })
+    
   },
 
   order_select:function(e){
@@ -199,16 +228,23 @@ Page({
     var that = this
     
     wx.cloud.callFunction({
-      name: "getAcceptedMission",        // 传递给云函数的参数
-      data: {
-        user_id: app.globalData.openid
-      },
-    }).then(res => {
-      that.setData({
-        my_mission_array: res.result.data
-      })
-      console.log(res.result.data)
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "getAcceptedMission",        // 传递给云函数的参数
+          data: {
+            user_id: openid
+          },
+        }).then(res => {
+          that.setData({
+            my_mission_array: res.result.data
+          })
+          console.log(res.result.data)
+        })
+      }
     })
+    
 
     this.setData({
       visible_main: "display:block",
@@ -277,16 +313,23 @@ Page({
         console.log(e.result)
         //get isUserPublisher from Server
         wx.cloud.callFunction({
-          name: "getAcceptedMission",        // 传递给云函数的参数
-          data: {
-            user_id: app.globalData.openid
-          },
-        }).then(res => {
-          that.setData({
-            my_mission_array: res.result.data
-          })
-          console.log(res.result.data)
+          name: "login",
+          success: function (res) {
+            var openid = res.result.openid
+            wx.cloud.callFunction({
+              name: "getAcceptedMission",        // 传递给云函数的参数
+              data: {
+                user_id: openid
+              },
+            }).then(res => {
+              that.setData({
+                my_mission_array: res.result.data
+              })
+              console.log(res.result.data)
+            })
+          }
         })
+        
       }
     })
   },
@@ -304,16 +347,23 @@ Page({
         console.log(e.result)
         //get isUserPublisher from Server
         wx.cloud.callFunction({
-          name: "getPublishedMission",        // 传递给云函数的参数
-          data: {
-            user_id: app.globalData.openid
-          },
-        }).then(res => {
-          that.setData({
-            my_mission_array: res.result.data
-          })
-          console.log(res.result.data)
+          name: "login",
+          success: function (res) {
+            var openid = res.result.openid
+            wx.cloud.callFunction({
+              name: "getPublishedMission",        // 传递给云函数的参数
+              data: {
+                user_id: openid
+              },
+            }).then(res => {
+              that.setData({
+                my_mission_array: res.result.data
+              })
+              console.log(res.result.data)
+            })
+          }
         })
+        
       }
     })
   },
@@ -345,16 +395,23 @@ Page({
 
         //get isUserPublisher from Server
         wx.cloud.callFunction({
-          name: "getAcceptedMission",        // 传递给云函数的参数
-          data: {
-            user_id: app.globalData.openid
-          },
-        }).then(res => {
-          that.setData({
-            my_mission_array: res.result.data
-          })
-          console.log(res.result.data)
+          name: "login",
+          success: function (res) {
+            var openid = res.result.openid
+            wx.cloud.callFunction({
+              name: "getAcceptedMission",        // 传递给云函数的参数
+              data: {
+                user_id: openid
+              },
+            }).then(res => {
+              that.setData({
+                my_mission_array: res.result.data
+              })
+              console.log(res.result.data)
+            })
+          }
         })
+        
       }
     })
   },
@@ -405,19 +462,25 @@ Page({
           }
         })
 
-
         //get isUserPublisher from Server
         wx.cloud.callFunction({
-          name: "getPublishedMission",        // 传递给云函数的参数
-          data: {
-            user_id: app.globalData.openid
-          },
-        }).then(res => {
-          that.setData({
-            my_mission_array: res.result.data
-          })
-          console.log(res.result.data)
+          name: "login",
+          success: function (res) {
+            var openid = res.result.openid
+            wx.cloud.callFunction({
+              name: "getPublishedMission",        // 传递给云函数的参数
+              data: {
+                user_id: openid
+              },
+            }).then(res => {
+              that.setData({
+                my_mission_array: res.result.data
+              })
+              console.log(res.result.data)
+            })
+          }
         })
+
       }
     })
   },
@@ -427,52 +490,59 @@ Page({
   onLoad: function (options) {
     var time = util.formatTime(new Date())
     var app = getApp()
+    var that = this
 
-    this.setData({
-      user_id: app.globalData.openid
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        that.setData({
+          user_id: openid
+        })
+        console.log(that.data.user_id)
+      }
     })
-    console.log(this.data.user_id)
+    
     
     wx.cloud.callFunction({
       name: "login",
       complete: function(res){
-        app.globalData.openid = res.result.openid
-        console.log(res.result.openid)
-      }
-    })
-    
-    wx.cloud.callFunction({
-      name: "getUserInfo",
-      data:{
-        user_id: app.globalData.openid
-      },
-      complete: function (res) {
-        app.globalData.user = res.result.data[0]
-        var newAccount = app.globalData.user.account + 1
-        console.log(newAccount)
-        if (time > app.globalData.user.last) {
-          wx.cloud.callFunction({
-            name: "bonus",
-            data: {
-              user_id: app.globalData.openid,
-              account: newAccount,
-              last: time
-            },
-            complete: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "getUserInfo",
+          data: {
+            user_id: openid
+          },
+          complete: function (res) {
+            app.globalData.user = res.result.data[0]
+            var newAccount = app.globalData.user.account + 1
+            console.log(newAccount)
+            if (time > app.globalData.user.last) {
               wx.cloud.callFunction({
-                name: "getUserInfo",
+                name: "bonus",
                 data: {
-                  user_id: app.globalData.openid
+                  user_id: openid,
+                  account: newAccount,
+                  last: time
                 },
-                complete:function(res){
-                  app.globalData.user = res.result.data[0]
+                complete: function (res) {
+                  wx.cloud.callFunction({
+                    name: "getUserInfo",
+                    data: {
+                      user_id: openid
+                    },
+                    complete: function (res) {
+                      app.globalData.user = res.result.data[0]
+                    }
+                  })
                 }
               })
             }
-          })
-        }
+          }
+        })
       }
     })
+    
 
   },
 
@@ -514,15 +584,21 @@ Page({
       var that = this
 
       wx.cloud.callFunction({
-        name: "getAcceptedMission",        // 传递给云函数的参数
-        data: {
-          user_id: app.globalData.openid
-        },
-      }).then(res => {
-        that.setData({
-          my_mission_array: res.result.data
-        })
-        console.log(res.result.data)
+        name: "login",
+        success: function (res) {
+          var openid = res.result.openid
+          wx.cloud.callFunction({
+            name: "getAcceptedMission",        // 传递给云函数的参数
+            data: {
+              user_id: openid
+            },
+          }).then(res => {
+            that.setData({
+              my_mission_array: res.result.data
+            })
+            console.log(res.result.data)
+          })
+        }
       })
     }
   },
@@ -574,42 +650,62 @@ Page({
     }
 
    
-
     if (this.data.accept_or_publish){
       wx.cloud.callFunction({
-        name: "getAcceptedMission",        // 传递给云函数的参数
-        data: {
-          user_id: app.globalData.openid
-        },
-      }).then(res => {
-        that.setData({
-          my_mission_array: res.result.data
-        })
-        console.log(res.result.data)
+        name: "login",
+        success: function (res) {
+          var openid = res.result.openid
+          wx.cloud.callFunction({
+            name: "getAcceptedMission",        // 传递给云函数的参数
+            data: {
+              user_id: openid
+            },
+          }).then(res => {
+            that.setData({
+              my_mission_array: res.result.data
+            })
+            console.log(res.result.data)
+          })
+        }
       })
-    } else{
+    } 
+    else{
       wx.cloud.callFunction({
-        name: "getPublishedMission",        // 传递给云函数的参数
-        data: {
-          user_id: app.globalData.openid
-        },
-      }).then(res => {
-        that.setData({
-          my_mission_array: res.result.data
-        })
-        console.log(res.result.data)
+        name: "login",
+        success: function (res) {
+          var openid = res.result.openid
+          wx.cloud.callFunction({
+            name: "getPublishedMission",        // 传递给云函数的参数
+            data: {
+              user_id: openid
+            },
+          }).then(res => {
+            that.setData({
+              my_mission_array: res.result.data
+            })
+            console.log(res.result.data)
+          })
+        }
       })
+      
     }
 
     wx.cloud.callFunction({
-      name: "getUserInfo",
-      data: {
-        user_id: app.globalData.openid
-      },
-      complete: function (res) {
-        app.globalData.user = res.result.data[0]
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        wx.cloud.callFunction({
+          name: "getUserInfo",
+          data: {
+            user_id: openid
+          },
+          complete: function (res) {
+            app.globalData.user = res.result.data[0]
+          }
+        })
       }
     })
+    
 
     var instituteId = ""
 

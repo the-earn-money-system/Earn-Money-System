@@ -69,24 +69,32 @@ Page({
             _id: app.globalData.mission_id
           }).get().then(res => {
             console.log(res)
+            var getMission = res.data[0]
 
-            var check_pub = false
-            var check_re = false
-            if (res.data[0].publisher_id == app.globalData.openid)
-              check_pub = true
-            if (res.data[0].recipient_id == app.globalData.openid)
-              check_re = true
+            wx.cloud.callFunction({
+              name: "login",
+              success: function (res) {
+                var openid = res.result.openid
+                var check_pub = false
+                var check_re = false
+                if (getMission.publisher_id == openid)
+                  check_pub = true
+                if (getMission.recipient_id == openid)
+                  check_re = true
 
-            this.setData({
-              isUserPublisher: check_pub,
-              isUserAcceptter: check_re,
-              missionName: res.data[0].Title,
-              time: res.data[0].Time,
-              pay: res.data[0].Pay,
-              progress: res.data[0].state,
-              detail: res.data[0].Info,
-              mission: res.data[0]
+                this.setData({
+                  isUserPublisher: check_pub,
+                  isUserAcceptter: check_re,
+                  missionName: getMission.Title,
+                  time: getMission.Time,
+                  pay: getMission.Pay,
+                  progress: getMission.state,
+                  detail: getMission.Info,
+                  mission: getMission
+                })
+              }
             })
+            
           })
           return
         }
@@ -130,39 +138,55 @@ Page({
 
               app.globalData.user.account = app.globalData.user.account + pay
               console.log(app.globalData.user.account)
+
               wx.cloud.callFunction({
-                name: "addAccount",
-                data: {
-                  user_id: app.globalData.openid,
-                  account: app.globalData.user.account
-                },
-                complete: function (e) {
-                  console.log(e)
+                name: "login",
+                success: function (res) {
+                  var openid = res.result.openid
+                  wx.cloud.callFunction({
+                    name: "addAccount",
+                    data: {
+                      user_id: openid,
+                      account: app.globalData.user.account
+                    },
+                    complete: function (e) {
+                      console.log(e)
+                    }
+                  })
                 }
               })
+              
 
               db.collection('Mission').where({
                 _id: app.globalData.mission_id
               }).get().then(res => {
                 console.log(res)
+                var getMission = res.data[0]
 
-                var check_pub = false
-                var check_re = false
-                if (res.data[0].publisher_id == app.globalData.openid)
-                  check_pub = true
-                if (res.data[0].recipient_id == app.globalData.openid)
-                  check_re = true
+                wx.cloud.callFunction({
+                  name: "login",
+                  success: function (res) {
+                    var openid = res.result.openid
+                    var check_pub = false
+                    var check_re = false
+                    if (getMission.publisher_id == openid)
+                      check_pub = true
+                    if (getMission.recipient_id == openid)
+                      check_re = true
 
-                that.setData({
-                  isUserPublisher: check_pub,
-                  isUserAcceptter: check_re,
-                  missionName: res.data[0].Title,
-                  time: res.data[0].Time,
-                  pay: res.data[0].Pay,
-                  progress: res.data[0].state,
-                  detail: res.data[0].Info,
-                  mission: res.data[0]
+                    that.setData({
+                      isUserPublisher: check_pub,
+                      isUserAcceptter: check_re,
+                      missionName: getMission.Title,
+                      time: getMission.Time,
+                      pay: getMission.Pay,
+                      progress: getMission.state,
+                      detail: getMission.Info,
+                      mission: getMission
+                    })
+                  }
                 })
+                
               })
             }
           })
@@ -233,24 +257,32 @@ Page({
             _id: app.globalData.mission_id
           }).get().then(res => {
             console.log(res)
+            var getMission = res.data[0]
 
-            var check_pub = false
-            var check_re = false
-            if (res.data[0].publisher_id == app.globalData.openid)
-              check_pub = true
-            if (res.data[0].recipient_id == app.globalData.openid)
-              check_re = true
+            wx.cloud.callFunction({
+              name: "login",
+              success: function (res) {
+                var openid = res.result.openid
+                var check_pub = false
+                var check_re = false
+                if (getMission.publisher_id == openid)
+                  check_pub = true
+                if (getMission.recipient_id == openid)
+                  check_re = true
 
-            that.setData({
-              isUserPublisher: check_pub,
-              isUserAcceptter: check_re,
-              missionName: res.data[0].Title,
-              time: res.data[0].Time,
-              pay: res.data[0].Pay,
-              progress: res.data[0].state,
-              detail: res.data[0].Info,
-              mission: res.data[0]
+                that.setData({
+                  isUserPublisher: check_pub,
+                  isUserAcceptter: check_re,
+                  missionName: getMission.Title,
+                  time: getMission.Time,
+                  pay: getMission.Pay,
+                  progress: getMission.state,
+                  detail: getMission.Info,
+                  mission: getMission
+                })
+              }
             })
+            
           })
         }
       })
@@ -275,24 +307,32 @@ Page({
             _id: app.globalData.mission_id
           }).get().then(res => {
             console.log(res)
+            var getMission = res.data[0]
 
-            var check_pub = false
-            var check_re = false
-            if (res.data[0].publisher_id == app.globalData.openid)
-              check_pub = true
-            if (res.data[0].recipient_id == app.globalData.openid)
-              check_re = true
+            wx.cloud.callFunction({
+              name: "login",
+              success: function (res) {
+                var openid = res.result.openid
+                var check_pub = false
+                var check_re = false
+                if (getMission.publisher_id == openid)
+                  check_pub = true
+                if (getMission.recipient_id == openid)
+                  check_re = true
 
-            that.setData({
-              isUserPublisher: check_pub,
-              isUserAcceptter: check_re,
-              missionName: res.data[0].Title,
-              time: res.data[0].Time,
-              pay: res.data[0].Pay,
-              progress: res.data[0].state,
-              detail: res.data[0].Info,
-              mission: res.data[0]
+                that.setData({
+                  isUserPublisher: check_pub,
+                  isUserAcceptter: check_re,
+                  missionName: getMission.Title,
+                  time: getMission.Time,
+                  pay: getMission.Pay,
+                  progress: getMission.state,
+                  detail: getMission.Info,
+                  mission: getMission
+                })
+              }
             })
+            
           })
         }
       })
@@ -318,44 +358,59 @@ Page({
           app.globalData.user.account = app.globalData.user.account + pay
 
           wx.cloud.callFunction({
-            name: "addAccount",
-            data: {
-              user_id: app.globalData.openid,
-              account: app.globalData.user.account
-            },
-            complete: function (e) {
-              console.log(e)
+            name: "login",
+            success: function (res) {
+              var openid = res.result.openid
+              wx.cloud.callFunction({
+                name: "addAccount",
+                data: {
+                  user_id: openid,
+                  account: app.globalData.user.account
+                },
+                complete: function (e) {
+                  console.log(e)
+                }
+              })
             }
           })
+          
 
           db.collection('Mission').where({
             _id: app.globalData.mission_id
           }).get().then(res => {
             console.log(res)
+            var getMission = res.data[0]
 
-            var check_pub = false
-            var check_re = false
-            if (res.data[0].publisher_id == app.globalData.openid)
-              check_pub = true
-            if (res.data[0].recipient_id == app.globalData.openid)
-              check_re = true
+            wx.cloud.callFunction({
+              name: "login",
+              success: function (res) {
+                var openid = res.result.openid
+                var check_pub = false
+                var check_re = false
+                if (getMission.publisher_id == openid)
+                  check_pub = true
+                if (getMission.recipient_id == openid)
+                  check_re = true
 
-            that.setData({
-              isUserPublisher: check_pub,
-              isUserAcceptter: check_re,
-              missionName: res.data[0].Title,
-              time: res.data[0].Time,
-              pay: res.data[0].Pay,
-              progress: res.data[0].state,
-              detail: res.data[0].Info,
-              mission: res.data[0]
+                that.setData({
+                  isUserPublisher: check_pub,
+                  isUserAcceptter: check_re,
+                  missionName: getMission.Title,
+                  time: getMission.Time,
+                  pay: getMission.Pay,
+                  progress: getMission.state,
+                  detail: getMission.Info,
+                  mission: getMission
+                })
+              }
             })
+
+            
           })
         }
       })
     }
     else if (this.data.isUserAcceptter) {    //当用户为接收者,按钮用于取消接受
-      var app = getApp()
       var that = this
       const res1 = wx.cloud.callFunction({
         name: "acceptMission",
@@ -403,24 +458,33 @@ Page({
       _id: app.globalData.mission_id
     }).get().then(res => {
       console.log(res)
+      var getMission = res.data[0]
 
-      var check_pub = false
-      var check_re = false
-      if (res.data[0].publisher_id == app.globalData.openid)
-        check_pub = true
-      if (res.data[0].recipient_id == app.globalData.openid)
-        check_re = true
+      wx.cloud.callFunction({
+        name: "login",
+        success: function (res) {
+          var openid = res.result.openid
 
-      this.setData({
-        isUserPublisher: check_pub,
-        isUserAcceptter: check_re,
-        missionName: res.data[0].Title,
-        time: res.data[0].Time,
-        pay: res.data[0].Pay,
-        progress: res.data[0].state,
-        detail: res.data[0].Info,
-        mission: res.data[0]
+          var check_pub = false
+          var check_re = false
+          if (getMission.publisher_id == openid)
+            check_pub = true
+          if (getMission.recipient_id == openid)
+            check_re = true
+
+          this.setData({
+            isUserPublisher: check_pub,
+            isUserAcceptter: check_re,
+            missionName: getMission.Title,
+            time: getMission.Time,
+            pay: getMission.Pay,
+            progress: getMission.state,
+            detail: getMission.Info,
+            mission: getMission
+          })
+        }
       })
+      
     })
   },
 
