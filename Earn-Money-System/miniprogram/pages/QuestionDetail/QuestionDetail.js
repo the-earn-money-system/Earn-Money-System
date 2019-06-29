@@ -15,7 +15,7 @@ Page({
     answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
     isUserPublisher: false,
-    isUserAcceptter: -1,
+    isUserAcceptter: 1,
     disabled: true,
     missionName: "Temp",
     time: "temp",
@@ -64,7 +64,13 @@ Page({
           if (getMission.publisher_id == openid)
             check_pub = true
 
-          check_re = getMission.Participant.indexOf(openid)
+          var res = -1
+          for (var i in getMission.Participant) {
+            if (array[i] == openid)
+              res = i
+          }
+          
+          check_re = res
 
           that.setData({
             isUserPublisher: check_pub,
