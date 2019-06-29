@@ -42,6 +42,30 @@ Page({
     })
   },
 
+  quesSub: function(e){
+    var temp_index = this.data.question_index
+    var temp_array = this.data.question_array
+    if(temp_index == 1)
+      return
+    temp_index -= 1
+    temp_array.pop()
+    this.setData({
+      question_index: temp_index,
+      question_array: temp_array
+    })
+  },
+
+  quesPlus: function(e) {
+    var temp_index = this.data.question_index
+    var temp_array = this.data.question_array
+    temp_index += 1
+    temp_array.push(temp_index)
+    this.setData({
+      question_index: temp_index,
+      question_array: temp_array
+    })
+  },
+
   missionSubmit: function (e) {
     console.log(e.detail.value)
     if(e.detail.value.title==""){
