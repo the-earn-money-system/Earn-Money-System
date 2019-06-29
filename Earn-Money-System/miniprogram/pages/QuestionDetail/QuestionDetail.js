@@ -14,8 +14,8 @@ Page({
     answer_array: ["wdnmd","发把狙","白给"],
     answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
-    isUserPublisher: false,
-    isUserAcceptter: 1,
+    isUserPublisher: true,
+    isUserAcceptter: -1,
     disabled: true,
     missionName: "Temp",
     time: "temp",
@@ -33,6 +33,18 @@ Page({
       topbartitleinfo: e.currentTarget.dataset.ques,
       checkDetail: true
     })
+  },
+
+  back: function(e){
+    if(checkDetail){
+      this.setData({
+        topbartitleinfo: this.data.quesionTitle,
+        checkDetail: false
+      })
+    }
+    else{
+      
+    }
   },
 
   /**
