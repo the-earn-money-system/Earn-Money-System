@@ -10,9 +10,10 @@
     <scroll-view class="scroll-y" scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
       <view class="scroll-y">
         <view wx:if="{{checkDetail == false}}" class="ques_line" wx:for-items="{{question_array}}" wx:key="index">
-          <text>问题{{index+1}}:{{question_array[index]}}</text>
-          <input wx:if="{{isAccepter}}" class="quesion-input"></input>
-          <button wx:elif="{{isPublisher}}" data-ques="{{question_array[index]}}" bindtap='questionDetail'>查看详情</button>
+          <text id="question">问题{{index+1}}:{{question_array[index]}}</text>
+          <text wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}">{{answerByUser[index]}}</text>
+          <button wx:elif="{{isUserPublisher}}" data-ques="{{question_array[index]}}" bindtap='questionDetail'>查看详情</button>
+          <input wx:else="{{isUserAcceptter!=-1}}" class="quesion-input"></input>
         </view>
         <view wx:if="{{checkDetail}}" class="ques_line" wx:for-items="{{answer_array}}" wx:key="index">
           <text class="answer-line">回答{{index+1}}:{{question_array[index]}}</text>
@@ -20,9 +21,9 @@
       </view>
     </scroll-view>
     <view class="button-view">
-      <button wx:if="{{isAccepter}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>取消</button>
-      <button wx:elif="{{isPublisher}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>返回</button>
-      <button wx:if="{{isAccepter}}" class="mission-button" id="mission-submit" form-type='submit'>提交</button>
+      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>取消</button>
+      <button wx:elif="{{isUserPublisher || isUserAcceptter!=-1}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>返回</button>
+      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-submit" form-type='submit'>提交</button>
     </view>
   </view>
 </view>
