@@ -34,7 +34,14 @@ Page({
       checkDetail: true
     })
 
-    
+    var temp_answer_array = []
+    var len = this.data.Content.length
+    for (var i = 0; i < len; i++) {
+      temp_answer_array.push(this.data.Content[i][e.currentTarget.dataset.ques])
+    }
+    this.setData({
+      answer_array: temp_answer_array
+    })
   },
 
   back: function(e){
@@ -95,7 +102,7 @@ Page({
             progress: getMission.state,
             detail: getMission.Info,
             mission: getMission,
-            Content: getMission.Content
+            //Content: getMission.Content
           })
 
           if(res != -1){
