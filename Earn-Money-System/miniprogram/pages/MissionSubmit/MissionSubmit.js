@@ -101,7 +101,9 @@ Page({
             Info: e.detail.value.info,
             publisher_id: openid,
             state: "Unfinished",
-            recipient_id: ""
+            recipient_id: "",
+            Participant: [],
+            Content: []
           },
           complete: function (res) {
             console.log(res)
