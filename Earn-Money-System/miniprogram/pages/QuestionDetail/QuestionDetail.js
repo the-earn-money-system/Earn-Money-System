@@ -24,7 +24,7 @@ Page({
     detail: "temp",
     mission: null,
     starttime: "2019-06-26",
-    Content: []
+    Content: [{ "谁是毛子": "1", "谁是茄子": "-1" }, { "谁是毛子": "2", "谁是茄子": "-2" }, { "谁是毛子": "3", "谁是茄子": "-3" }]
   },
 
   questionDetail: function(e){
@@ -33,6 +33,11 @@ Page({
       topbartitleinfo: e.currentTarget.dataset.ques,
       checkDetail: true
     })
+
+    var temp = []
+    for(var i in this.data.Content){
+      console.log(this.data.Content[i][e.currentTarget.dataset.ques])
+    }
   },
 
   back: function(e){
@@ -92,8 +97,8 @@ Page({
             pay: getMission.Pay,
             progress: getMission.state,
             detail: getMission.Info,
-            mission: getMission,
-            Content: getMission.Content
+            mission: getMission
+            //Content: getMission.Content
           })
         }
       })
