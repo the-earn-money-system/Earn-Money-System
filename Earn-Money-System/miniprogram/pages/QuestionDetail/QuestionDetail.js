@@ -1,12 +1,20 @@
 // miniprogram/pages/QuestionDetail/QuestionDetail.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
+    quesionTitle: "问卷标题",   //问卷标题
+    topbartitleinfo: "任务标题",
+    checkDetail: false, //查看详情时为true
+    question_array: ["谁是茄子","谁是毛子"],
+    answer_array: ["wdnmd","发把狙","白给"],
+    answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
-    isUserPublisher: true,
+    isUserPublisher: false,
     isUserAcceptter: -1,
     disabled: true,
     missionName: "Temp",
@@ -17,7 +25,14 @@ Page({
     mission: null,
     starttime: "2019-06-26",
     Content: []
+  },
 
+  questionDetail: function(e){
+    console.log(e.currentTarget.dataset.ques)
+    this.setData({
+      topbartitleinfo: e.currentTarget.dataset.ques,
+      checkDetail: true
+    })
   },
 
   /**
