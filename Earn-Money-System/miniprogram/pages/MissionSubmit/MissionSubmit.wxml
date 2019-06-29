@@ -34,7 +34,7 @@
         </view>
         <scroll-view wx:else scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
         <view class="scroll-y">
-          <text class="ques-view">问卷调查{{question_index}}</text>
+          <text class="ques-view">问卷调查</text>
           <view wx:for-items="{{question_array}}" wx:key="index">
             <text>任务{{question_array[index]}}</text>
             <input class="quesion-input"></input>
