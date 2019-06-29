@@ -14,7 +14,7 @@ Page({
     answer_array: ["wdnmd","发把狙","白给"],
     answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
-    isUserPublisher: true,
+    isUserPublisher: false,
     isUserAcceptter: -1,
     disabled: true,
     missionName: "Temp",
@@ -56,6 +56,26 @@ Page({
     }
   },
 
+  submitAnswers: function(e){
+    console.log(e.detail)
+    this.setData({
+      answerByUser: []
+    })
+    for (var i in e.detail.value)
+    {
+      console.log(e.detail.value[i])
+      this.data.answerByUser.push(e.detail.value[i])
+    }
+    console.log(this.data.answerByUser)
+    var temp = []
+    var temp_json = {}
+    for (var i in this.data.question_array)
+    {
+      console.log(this.data.question_array[i])
+      temp_json[this.data.question_array[i]] = this.data.answerByUser[i]
+    }
+    console.log(temp_json[this.data.question_array[0]])
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -113,7 +133,7 @@ Page({
       })
 
     })
-  },
+  }, 
 
   /**
    * 生命周期函数--监听页面初次渲染完成
