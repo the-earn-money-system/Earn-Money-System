@@ -16,6 +16,7 @@ Page({
     detail: "temp",
     mission: null,
     starttime: "2019-06-26",
+    Content: []
 
   },
 
@@ -58,7 +59,8 @@ Page({
             pay: getMission.Pay,
             progress: getMission.state,
             detail: getMission.Info,
-            mission: getMission
+            mission: getMission,
+            Content: getMission.Content
           })
         }
       })
