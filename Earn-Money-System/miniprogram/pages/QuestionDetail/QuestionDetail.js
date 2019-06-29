@@ -5,7 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
+    quesionTitle: "问卷标题",   //问卷标题
+    topbartitleinfo: "任务标题",
+    checkDetail: false, //查看详情时为true
+    isPublisher: true,
+    isAccepter: false,
+    question_array: ["谁是茄子","谁是毛子"],
+    answer_array: ["wdnmd","发把狙","白给"]
+  },
 
+  questionDetail: function(e){
+    console.log(e.currentTarget.dataset.ques)
+    this.setData({
+      topbartitleinfo: e.currentTarget.dataset.ques,
+      checkDetail: true
+    })
   },
 
   /**

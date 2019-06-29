@@ -1,1 +1,87 @@
-/* miniprogram/pages/QuestionDetail/QuestionDetail.wxss */
+/* pages/MissionSubmit/MissionSubmit.wxss */
+.mission-info-line{
+  width: 100%;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.mission-info-area{
+  width: 100%;
+  height: 400rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.ques-view{
+  border: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.scroll-y{
+  width:100%;
+}
+
+.ques_line{
+  width: 100%;
+}
+
+.quesion-input{
+  width: 100%;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.answer-line{
+  width: 100%;
+  height: 30rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.mission-info-text{
+  width: 100%;
+  height: 20%;
+  text-align: center;
+  border-right: 1rpx solid rgba(0, 0, 0, 0.137);
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.137);
+}
+
+.mission-info-input{
+  height: 80%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.button-ques-view{
+  position: absolute;
+  width: 250rpx;
+  right:  50rpx;
+  bottom: 120rpx;
+}
+
+.button-ques{
+  width: 100rpx;
+  height: 100rpx;
+  display: inline-block;
+  border-radius: 50%;
+  background-color:  rgba(0, 0, 0, 0.137);
+}
+
+#button-plus{
+  transform: translateX(20rpx);
+}
+
+.mission-button{
+  position: absolute;
+  display: inline-flex;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+#mission-cancel{
+  left: 0;
+  width:50%;
+}
+
+#mission-submit{
+  right: 0;
+  width: 50%;
+}
