@@ -21,8 +21,8 @@
       </view>
     </scroll-view>
     <view class="button-view">
-      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>取消</button>
-      <button wx:elif="{{isUserPublisher || isUserAcceptter!=-1}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>返回</button>
+      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='cancel'>取消</button>
+      <button wx:elif="{{isUserPublisher || isUserAcceptter!=-1}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='back'>返回</button>
       <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-submit" form-type='submit'>提交</button>
     </view>
   </view>
