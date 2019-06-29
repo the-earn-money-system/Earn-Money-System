@@ -14,7 +14,7 @@ Page({
     answer_array: ["wdnmd","发把狙","白给"],
     answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
-    isUserPublisher: true,
+    isUserPublisher: false,
     isUserAcceptter: -1,
     disabled: true,
     missionName: "Temp",
@@ -34,10 +34,13 @@ Page({
       checkDetail: true
     })
 
-    var temp = []
+    /*var temp = []
     for(var i in this.data.Content){
       console.log(this.data.Content[i][e.currentTarget.dataset.ques])
-    }
+    }*/
+    /*var temp = []
+    for(var i in this.data.Content[1])
+      console.log(this.data.Content[1][i])*/
   },
 
   back: function(e){
@@ -97,9 +100,14 @@ Page({
             pay: getMission.Pay,
             progress: getMission.state,
             detail: getMission.Info,
-            mission: getMission
-            //Content: getMission.Content
+            mission: getMission,
+            Content: getMission.Content
           })
+
+          if(res != -1){
+            for(var i in Content[res])
+              that.data.answerByUser.push(Content[res][i])
+          }
         }
       })
 
