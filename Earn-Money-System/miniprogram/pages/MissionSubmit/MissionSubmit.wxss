@@ -24,6 +24,23 @@
   overflow: scroll;
 }
 
+.button-ques-view{
+  position: absolute;
+  right:  50rpx;
+  bottom: 120rpx;
+}
+
+.button-ques{
+  width: 100rpx;
+  height: 100rpx;
+  display: inline-block;
+  border-radius: 50%;
+  background-color:  rgba(0, 0, 0, 0.137);
+}
+
+#button-plus{
+  transform: translateX(20rpx);
+}
 
 .mission-button{
   position: absolute;

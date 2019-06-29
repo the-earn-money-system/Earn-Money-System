@@ -13,6 +13,12 @@
           <input class="mission-info-input" name="title"></input>
         </view>
         <view class="mission-info-line">
+          <text class="mission-info-text">任务类型</text>
+          <picker value='{{type_object[type_index].id}}' range="{{type_array}}" name="tpye" bindchange="bingTypeChange" >
+            <view>{{type_object[type_index].name}}</view>
+          </picker>
+        </view>
+        <view class="mission-info-line">
           <text class="mission-info-text">截止时间</text>
           <picker mode='date' start="{{starttime}}" end="2077-07-07" disabled='{{disabled}}'  name="time" bindchange="bindTimeChange" >
             <view>{{time}}</view>
@@ -22,10 +28,23 @@
           <text class="mission-info-text">报酬(积分)</text>
           <input type="number" class="mission-info-input" name="pay"></input>
         </view>
-         <view class="mission-info-area">
+         <view wx:if='{{type_index==0}}' class="mission-info-area">
           <text class="mission-info-text">任务详情</text>
           <textarea class="mission-info-input" name="info"></textarea>
         </view>
+        <scroll-view wx:else scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
+        <view class="scroll-y">
+          <text class="ques-view">问卷调查</text>
+          <view wx:for-items="{{question_array}}" wx:key="question_index">
+            <text>任务{{question_array}}</text>
+            <input></input>
+          </view>
+        </view>
+      </scroll-view>
+      </view>
+      <view wx:if="{{type_index==1}}" class="button-ques-view">
+        <button class="button-ques" bindtap="ques-sub">-</button>
+        <button class="button-ques" id="button-plus" bindtap="ques-plus">+</button>
       </view>
       <view class="button-view">
         <button class="mission-button" id="mission-cancel" form-type='reset' bindtap='backToHome'>取消</button>

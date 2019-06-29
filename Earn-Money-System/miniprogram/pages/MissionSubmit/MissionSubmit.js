@@ -9,12 +9,29 @@ Page({
     topbartitleinfo: "发布任务",
     time: "2019-06-26",
     starttime: "2019-06-26",
-    mission: null
+    mission: null,
+
+    type_array: ["普通任务", "问卷调查"],
+    type_object: [
+      {id: 0, name: "普通任务"},
+      {id: 1, name: "问卷调查"}
+    ],
+    type_index: 0,
+
+    question_array: [1],
+    question_index: 1
   },
   
   backToHome: function (e) {
     wx.redirectTo({
       url: '../main/main',
+    })
+  },
+
+  bingTypeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      type_index: e.detail.value
     })
   },
 
@@ -97,7 +114,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      starttime: util.formatTime(new Date())
+      starttime: util.formatTime(new Date()),
+      time: util.formatTime(new Date())
     })
   },
 
