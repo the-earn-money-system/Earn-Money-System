@@ -16,14 +16,14 @@
           <input wx:else="{{isUserAcceptter==-1}}" class="quesion-input"></input>
         </view>
         <view wx:if="{{checkDetail}}" class="ques_line" wx:for-items="{{answer_array}}" wx:key="index">
-          <text class="answer-line">回答{{index+1}}:{{question_array[index]}}</text>
+          <text class="answer-line">回答{{index+1}}:{{answer_array[index]}}</text>
         </view>
       </view>
     </scroll-view>
     <view class="button-view">
-      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='cancel'>取消</button>
-      <button wx:elif="{{isUserPublisher || isUserAcceptter!=-1}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='back'>返回</button>
-      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false}}" class="mission-button" id="mission-submit" form-type='submit'>提交</button>
+      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false  && checkDetail==false}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='cancel'>取消</button>
+      <button wx:elif="{{isUserPublisher || isUserAcceptter!=-1 || checkDetail}}" class="mission-button" id="mission-cancel" form-type='reset' bindtap='back'>返回</button>
+      <button wx:if="{{isUserAcceptter==-1 && isUserPublisher==false && checkDetail==false}}" class="mission-button" id="mission-submit" form-type='submit'>提交</button>
     </view>
   </view>
 </view>

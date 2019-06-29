@@ -14,7 +14,7 @@ Page({
     answer_array: ["wdnmd","发把狙","白给"],
     answerByUser: ["wdnmd","发把zhu"],
     topbartitleinfo: "任务详情",
-    isUserPublisher: false,
+    isUserPublisher: true,
     isUserAcceptter: -1,
     disabled: true,
     missionName: "Temp",
@@ -34,17 +34,11 @@ Page({
       checkDetail: true
     })
 
-    /*var temp = []
-    for(var i in this.data.Content){
-      console.log(this.data.Content[i][e.currentTarget.dataset.ques])
-    }*/
-    /*var temp = []
-    for(var i in this.data.Content[1])
-      console.log(this.data.Content[1][i])*/
+    
   },
 
   back: function(e){
-    if(checkDetail){
+    if(this.data.checkDetail){
       this.setData({
         topbartitleinfo: this.data.quesionTitle,
         checkDetail: false
@@ -93,8 +87,8 @@ Page({
           check_re = res
 
           that.setData({
-            isUserPublisher: check_pub,
-            isUserAcceptter: check_re,
+            //isUserPublisher: check_pub,
+            //isUserAcceptter: check_re,
             missionName: getMission.Title,
             time: getMission.Time,
             pay: getMission.Pay,
