@@ -195,7 +195,7 @@ Page({
             url: '../main/main',
           })
       }
-      else{
+      else{     //验收
         var app = getApp()
         var that = this
         const res = wx.cloud.callFunction({

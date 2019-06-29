@@ -7,16 +7,8 @@ cloud.init()
 exports.main = async (event, context) => {
   const db = cloud.database()
   try {
-    return await db.collection('Mission').add({
+    return db.collection('Mission').doc(event.id).update({
       data: {
-        Info: event.Info,
-        Pay: event.Pay,
-        Time: event.Time,
-        Title: event.Title,
-        publisher_id: event.publisher_id,
-        recipient_id: event.recipient_id,
-        state: event.state,
-        type: event.type,
         Participant: event.Participant,
         Content: event.Content
       }
