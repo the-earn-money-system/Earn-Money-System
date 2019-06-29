@@ -103,7 +103,8 @@ Page({
             state: "Unfinished",
             recipient_id: "",
             Participant: [],
-            Content: []
+            Content: [],
+            type: e.detail.value.type
           },
           complete: function (res) {
             console.log(res)
