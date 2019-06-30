@@ -8,6 +8,7 @@ Page({
       topbartitleinfo:"任务详情",
       isUserPublisher:true,
       isUserAcceptter: false,
+      isQuestionAcceptter: -1,  //是否填写过问卷
       disabled:true,
       missionName:"Temp",
       time:"temp",
@@ -481,9 +482,16 @@ Page({
           if (getMission.recipient_id == openid)
             check_re = true
 
+          var index = -1
+          for (var i in getMission.Participant) {
+            if (getMission.Participant[i] == openid)
+              index = i
+          }
+
           that.setData({
             isUserPublisher: check_pub,
             isUserAcceptter: check_re,
+            isQuestionAcceptter: index,
             missionName: getMission.Title,
             time: getMission.Time,
             pay: getMission.Pay,

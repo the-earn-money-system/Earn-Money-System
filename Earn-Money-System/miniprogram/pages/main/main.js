@@ -77,7 +77,6 @@ Page({
           })
         }
         else if (res.result.data.type == "Question"){
-          console.log(app.globalData.mission_id)
           app.globalData.mission_id = e.currentTarget.dataset.missionid
           console.log(app.globalData.mission_id)
           wx.navigateTo({

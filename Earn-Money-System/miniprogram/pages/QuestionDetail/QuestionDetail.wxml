@@ -9,7 +9,7 @@
   <form class="mainbar" bindsubmit='submitAnswers'>
     <scroll-view class="scroll-y" scroll-y="true" style="height: 90%;{{visible_my_mission}};" scroll-top="100">
       <view class="scroll-y">
-        <view wx:if="{{checkDetail == false && isUserAcceptter!=-1}}" class="ques_line" wx:for-items="{{question_array}}" wx:key="index">
+        <view wx:if="{{checkDetail == false}}" class="ques_line" wx:for-items="{{question_array}}" wx:key="index">
           <text id="question">问题{{index+1}}:{{question_array[index]}}</text>
           <view wx:if="{{isUserAcceptter!=-1 && isUserPublisher == false}}" class="answer-line">
             <text>回答{{index+1}}:{{answer_array[index]}}</text>
