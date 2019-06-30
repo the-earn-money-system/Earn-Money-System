@@ -42,30 +42,51 @@ Page({
 
   getId: function(e){
     console.log(e.currentTarget.dataset.missionid)
-    var app = getApp()
-    var that = this
-
     wx.cloud.callFunction({
-      name: "login",
-      success: function (res) {
-        var openid = res.result.openid
-        wx.cloud.callFunction({
-          name: "acceptMission",
-          data: {
-            id: e.currentTarget.dataset.missionid,
-            recipient_id: openid,
-            state: "Accepted"
-          },
-          complete: function (e) {
-            console.log(e.result)
-            const db = wx.cloud.database()
-            db.collection('Mission').limit(100).get().then(res => {
-              that.setData({
-                all_mission_array: res.data
+      name: "MissionOrQuestion",
+      data: {
+        id: e.currentTarget.dataset.missionid
+      },
+      success: function(res){
+        var app = getApp()
+        var that = this
+        console.log(res.result.data.type)
+        if (res.result.data.type == "Mission"){
+          wx.cloud.callFunction({
+            name: "login",
+            success: function (res) {
+              var openid = res.result.openid
+              wx.cloud.callFunction({
+                name: "acceptMission",
+                data: {
+                  id: e.currentTarget.dataset.missionid,
+                  recipient_id: openid,
+                  state: "Accepted"
+                },
+                complete: function (e) {
+                  console.log(e.result)
+                  const db = wx.cloud.database()
+                  db.collection('Mission').limit(100).get().then(res => {
+                    that.setData({
+                      all_mission_array: res.data
+                    })
+                  })
+                }
               })
-            })
-          }
-        })
+            }
+          })
+        }
+        else if (res.result.data.type == "Question"){
+          console.log(app.globalData.mission_id)
+          app.globalData.mission_id = e.currentTarget.dataset.missionid
+          console.log(app.globalData.mission_id)
+          wx.navigateTo({
+            url: '../QuestionDetail/QuestionDetail',
+          })
+        }
+        else{
+          console.log(res.result.data.type == "Question")
+        }
       }
     })
     

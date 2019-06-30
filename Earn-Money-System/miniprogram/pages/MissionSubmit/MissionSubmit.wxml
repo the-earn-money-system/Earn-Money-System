@@ -14,7 +14,7 @@
         </view>
         <view class="mission-info-line">
           <text class="mission-info-text">任务类型</text>
-          <picker value='{{type_object[type_index].id}}' range="{{type_array}}" name="tpye" bindchange="bingTypeChange" >
+          <picker value='{{type_object[type_index].id}}' range="{{type_array}}" name="type" bindchange="bingTypeChange" >
             <view>{{type_object[type_index].name}}</view>
           </picker>
         </view>

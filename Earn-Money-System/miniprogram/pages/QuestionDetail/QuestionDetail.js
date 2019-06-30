@@ -10,9 +10,9 @@ Page({
     quesionTitle: "问卷标题",   //问卷标题
     topbartitleinfo: "任务标题",
     checkDetail: false, //查看详情时为true
-    question_array: ["谁是茄子","谁是毛子"],
-    answer_array: ["wdnmd","发把狙","白给"],
-    answerByUser: ["wdnmd","发把zhu"],
+    question_array: [],
+    answer_array: [],
+    answerByUser: [],
     topbartitleinfo: "任务详情",
     isUserPublisher: false,
     isUserAcceptter: -1,
@@ -24,7 +24,7 @@ Page({
     detail: "temp",
     mission: null,
     starttime: "2019-06-26",
-    Content: [{ "谁是毛子": "1", "谁是茄子": "-1" }, { "谁是毛子": "2", "谁是茄子": "-2" }, { "谁是毛子": "3", "谁是茄子": "-3" }]
+    Content: []
   },
 
   questionDetail: function(e){
@@ -77,10 +77,29 @@ Page({
     console.log(temp_json)
     
     /* 在这里更新数据库 */
+    console.log(temp_json[this.data.question_array[0]])
 
+    var that = this
 
-    wx.redirectTo({
-      url: '../main/main',
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        console.log(res.result.openid)
+        var openid = res.result.openid
+        console.log(that.data.mission)
+        that.data.mission.Participant.push(openid)
+        that.data.mission.Content.push(temp_json)
+        wx.cloud.callFunction({
+          name: "updataQuestion",
+          data: {
+            Participant: that.data.mission.Participant,
+            Content: that.data.mission.Content
+          },
+          success: function(res){
+            console.log(res,result)
+          }
+        })
+      }
     })
   },
   /**
@@ -99,12 +118,13 @@ Page({
     db.collection('Mission').where({
       _id: app.globalData.mission_id
     }).get().then(res => {
-      console.log(res)
       var getMission = res.data[0]
+      console.log(getMission)
 
       wx.cloud.callFunction({
         name: "login",
         success: function (res) {
+          console.log(res)
           var openid = res.result.openid
 
           var check_pub = false
@@ -112,29 +132,38 @@ Page({
           if (getMission.publisher_id == openid)
             check_pub = true
 
-          var res = -1
+          var index = -1
           for (var i in getMission.Participant) {
-            if (array[i] == openid)
-              res = i
+            if (getMission.Participant[i] == openid)
+              index = i
           }
           
-          check_re = res
+          check_re = index
 
           that.setData({
-            //isUserPublisher: check_pub,
-            //isUserAcceptter: check_re,
+            isUserPublisher: check_pub,
+            isUserAcceptter: check_re,
             missionName: getMission.Title,
             time: getMission.Time,
             pay: getMission.Pay,
             progress: getMission.state,
             detail: getMission.Info,
             mission: getMission,
-            //Content: getMission.Content
+            Content: getMission.Content,
+            question_array : getMission.Question,
           })
-
-          if(res != -1){
-            for(var i in Content[res])
-              that.data.answerByUser.push(Content[res][i])
+          console.log(that.data.isUserAcceptter)
+          if (index != -1){
+            var temp = []
+            for (var i in that.data.question_array){
+              console.log(that.data.question_array[i])
+              console.log(getMission.Content[index][that.data.question_array[i]])
+              temp.push(getMission.Content[index][that.data.question_array[i]])
+            }
+            that.setData({
+              answer_array: temp
+            })
+            console.log(that.data.answer_array)
           }
         }
       })

@@ -17,8 +17,8 @@ Page({
     mission: null,
     type_array: ["普通任务", "问卷调查"],
     type_object: [
-      { id: 0, name: "普通任务" },
-      { id: 1, name: "问卷调查" }
+      { id: "Mission", name: "普通任务" },
+      { id: "Question", name: "问卷调查" }
     ],
     type_index: 0,
     question_array: [1],
@@ -95,25 +95,14 @@ Page({
     if (e.detail.value.time != "")
       time_temp = e.detail.value.time
 
-    // 调查问卷
-    if (this.data.type_index)
+    console.log(e.detail.value)
+    var temp_question = []
+    for(var i = 0; i < this.data.question_index; i++)
     {
-      console.log(e.detail.value)
-      var temp_question = []
-      for(var i = 0; i < this.data.question_index; i++)
-      {
-        temp_question.push(e.detail.value[i])
-      }
-      console.log(temp_question)
-
-      /* 在这里更新数据库 */
-
-      wx.redirectTo({
-        url: '../MissonSubmitComplete/MissonSubmitComplete',
-      })
-      return
+      temp_question.push(e.detail.value[i])
     }
-
+    console.log(temp_question)    
+    console.log(e.detail.value.type)
     // 普通任务
     wx.cloud.callFunction({
       name: "login",
@@ -131,10 +120,9 @@ Page({
             recipient_id: "",
             Participant: [],
             Content: [],
-            type: e.detail.value.type
+            type: e.detail.value.type,
+            Question: temp_question
           },
-
-
 
           complete: function (res) {
             console.log(res)
