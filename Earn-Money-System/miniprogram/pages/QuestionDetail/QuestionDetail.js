@@ -75,6 +75,7 @@ Page({
       temp_json[this.data.question_array[i]] = this.data.answerByUser[i]
     }
     console.log(temp_json[this.data.question_array[0]])
+    
   },
   /**
    * 生命周期函数--监听页面加载
