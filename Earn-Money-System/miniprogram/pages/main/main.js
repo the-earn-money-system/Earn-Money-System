@@ -13,10 +13,6 @@ Page({
     visible_all_mission:"display:flex",
     visible_my_mission:"display:none",
     visible_info:"display:none",
-    // mission_array:[{mission:"1",info:"任务1"}
-    //               ,{mission:"2",info:"任务2"}
-    //               ,{mission: "3",info: "任务3" }
-    //               ,{mission: "4",info: "任务4" }],
     mission_array:[{title:"任务1"}
                  ,{title:"任务2"}
                  ,{title:"任务3" }
@@ -128,6 +124,10 @@ Page({
   },
 
   mission_accept:function(e){
+    this.setData({
+      all_mission_array: [],
+      my_mission_array: []
+    })
     var app = getApp()
     var that = this
     var mission = []
@@ -157,6 +157,10 @@ Page({
   },
 
   mission_release:function(e){
+    this.setData({
+      all_mission_array: [],
+      my_mission_array: []
+    })
     var app = getApp()
     var that = this
     var mission = []
@@ -212,6 +216,10 @@ Page({
   },
 
   button_mainpage:function(e){
+    this.setData({
+      all_mission_array:[],
+      my_mission_array:[]
+    })
     if (this.data.index == 0) {         // time order
       const db = wx.cloud.database()
       db.collection('Mission').limit(100).get().then(res => {
@@ -244,6 +252,10 @@ Page({
   },
 
   button_my_mission:function(e){
+    this.setData({
+      all_mission_array: [],
+      my_mission_array: []
+    })
     var app = getApp()
     var that = this
     
