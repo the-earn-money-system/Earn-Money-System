@@ -10,6 +10,7 @@
     <form id="Mission-Detail-view" bindsubmit='recompileMissionForm'>
     <view class="main-view">
       <text>任务名称:</text><input class="mission-detail-info" disabled='{{disabled}}' value='{{missionName}}' name="missionName"></input>
+      <text>类型:</text><input class="mission-detail-info" disabled='false' value='{{MissionType[mission_type]}}' name="missionType"></input>
       <text>时间：</text>
         <view class="mission-detail-info" >
           <picker mode='date' start="{{starttime}}" end="2077-07-07" disabled='{{disabled}}' value='{{time}}' name="time" bindchange="bindTimeChange" >
@@ -20,14 +21,15 @@
         <input type="number" class="mission-detail-info" disabled='{{disabled}}' value='{{pay}}' name="pay"></input>
       <text>进度：</text>
         <input class="mission-detail-info" disabled='true' value='{{progress}}' name="progress"></input>
-      <text>详情：</text>
-        <textarea class="mission-detail-info" disabled='{{disabled}}' id="detail" value='{{detail}}' name="detail"></textarea>
+      <text wx:if="{{mission_type=='Mission'}}">详情：</text>
+        <textarea wx:if="{{mission_type=='Mission'}}" class="mission-detail-info" disabled='{{disabled}}' id="detail" value='{{detail}}' name="detail"></textarea>
       <view id="recompile-mission-check" wx:if="{{isUserPublisher==true}}">
         <view wx:if="{{compileButton}}">
           <button id="recompile-mission-button" form-type="submit">确认</button>   
         </view>
         <view wx:else>
-          <button wx:if="{{progress!='Finished' && progress!='Canceled' && progress!='Pass'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+          <button wx:if="{{(progress!='Finished' && progress!='Canceled' && progress!='Pass') && mission_type=='Mission'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
+          <button wx:elif="{{(progress!='Finished' && progress!='Canceled' && progress!='Pass') && mission_type=='Question'}}}}" id="recompile-mission-button" bindtap="checkQuestion">查看详情</button>
         </view>
       </view>
     </view>
@@ -35,10 +37,10 @@
     <view class="button-view">
       <button wx:if="{{isUserPublisher && progress!='Finished' && progress!='Pass' && progress!='Canceled'}}" class="mission-detail-button" id="button-cancel" bindtap='buttonCancle'>取消发布</button>
       <button wx:elif="{{isUserAcceptter && (progress=='Accepted' || progress=='Canceled')}}" class="mission-detail-button" id="button-cancel" bindtap="buttonCancle">取消接受</button>
-      <button wx:if="{{isUserAcceptter && progress!='Finished'  && progress!='Pass' && progress!='Canceled' && progress!='Expired'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
-      <button wx:elif="{{isUserPublisher && progress!='Finished'  && progress!='Pass' && progress!='Canceled'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
+      <button wx:if="{{(isUserAcceptter && progress!='Finished'  && progress!='Pass' && progress!='Canceled' && progress!='Expired')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
+      <button wx:elif="{{(isUserPublisher && progress!='Finished'  && progress!='Pass' && progress!='Canceled')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
       <button wx:elif="{{progress=='Unfinished'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
-      <button wx:elif="{{isUserPublisher && progress=='Finished'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">确认完成</button>
+      <button wx:elif="{{(isUserPublisher && progress=='Finished')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">确认完成</button>
     </view>
   </view>
 </view>

@@ -16,14 +16,23 @@ Page({
       detail:"temp",
       mission: null,
       starttime: "2019-06-26",
+      MissionType: {"Question": "问卷调查", "Mission": "普通任务"},
+      mission_type: "Question",
 
       compileButton:false
   },
-
+  
   // 重新编辑任务信息
   recompileMission: function(e){
     this.setData({compileButton: true})
     this.setData({ disabled: false })
+  },
+
+  //查看详情
+  checkQuestion: function(e){
+    wx.navigateTo({
+      url: '../QuestionDetail/QuestionDetail',
+    })
   },
 
   bindTimeChange: function (e) {
@@ -48,6 +57,7 @@ Page({
   },
 
   buttonSubmit: function(e){
+    var that = this
     if(this.data.isUserPublisher){  //当用户为发布者，按钮用于提交修改
       if(this.data.mission.state != "Finished"){
         var app = getApp()
@@ -61,7 +71,6 @@ Page({
             icon: "none",
             duration: 2000
           })
-          
           var db = wx.cloud.database()
           var app = getApp()
 
@@ -82,7 +91,7 @@ Page({
                 if (getMission.recipient_id == openid)
                   check_re = true
 
-                this.setData({
+                that.setData({
                   isUserPublisher: check_pub,
                   isUserAcceptter: check_re,
                   missionName: getMission.Title,
@@ -90,11 +99,10 @@ Page({
                   pay: getMission.Pay,
                   progress: getMission.state,
                   detail: getMission.Info,
-                  mission: getMission
+                  mission: getMission,
                 })
               }
             })
-            
           })
           return
         }
@@ -481,7 +489,8 @@ Page({
             pay: getMission.Pay,
             progress: getMission.state,
             detail: getMission.Info,
-            mission: getMission
+            mission: getMission,
+            mission_type: getMission.type
           })
         }
       })
