@@ -29,7 +29,7 @@
         </view>
         <view wx:else>
           <button wx:if="{{(progress!='Finished' && progress!='Canceled' && progress!='Pass') && mission_type=='Mission'}}" id="recompile-mission-button" bindtap="recompileMission">重新编辑任务信息</button>
-          <button wx:elif="{{(progress!='Finished' && progress!='Canceled' && progress!='Pass') && mission_type=='Question'}}}}" id="recompile-mission-button" bindtap="checkQuestion">查看详情</button>
+          <button wx:elif="{{(progress!='Finished' && progress!='Canceled' && progress!='Pass') || mission_type=='Question' && isQuestionAcceptter!=1}}}}" id="recompile-mission-button" bindtap="checkQuestion">查看详情</button>
         </view>
       </view>
     </view>

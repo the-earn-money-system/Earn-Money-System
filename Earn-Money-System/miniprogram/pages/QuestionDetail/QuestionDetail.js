@@ -56,6 +56,11 @@ Page({
     }
   },
 
+  cancel: function(e){
+    wx.navigateBack({
+    })
+  },
+
   submitAnswers: function(e){
     console.log(e.detail)
     this.setData({
@@ -89,9 +94,11 @@ Page({
         console.log(that.data.mission)
         that.data.mission.Participant.push(openid)
         that.data.mission.Content.push(temp_json)
+        console.log(that.data.mission)
         wx.cloud.callFunction({
           name: "updataQuestion",
           data: {
+            id: that.data.mission._id,
             Participant: that.data.mission.Participant,
             Content: that.data.mission.Content
           },
@@ -100,6 +107,10 @@ Page({
           }
         })
       }
+    })
+
+    wx.redirectTo({
+      url: '../main/main',
     })
   },
   /**
