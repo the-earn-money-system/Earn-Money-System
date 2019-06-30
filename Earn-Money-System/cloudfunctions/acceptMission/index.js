@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
   try {
     return db.collection('Mission').where({
       _id: _.eq(event.id),
-      state: _.eq("Unfinished")
+      state: _.eq("Unfinished").or(_.eq("Accepted"))
     }).update({
       data: {
         recipient_id: event.recipient_id,

@@ -39,7 +39,7 @@
       <button wx:elif="{{isUserAcceptter && (progress=='Accepted' || progress=='Canceled')}}" class="mission-detail-button" id="button-cancel" bindtap="buttonCancle">取消接受</button>
       <button wx:if="{{(isUserAcceptter && progress!='Finished'  && progress!='Pass' && progress!='Canceled' && progress!='Expired')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交任务</button>
       <button wx:elif="{{(isUserPublisher && progress!='Finished'  && progress!='Pass' && progress!='Canceled')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">提交修改</button>
-      <button wx:elif="{{progress=='Unfinished' && (isQuestionAcceptter == -1 && mission_type=='Question')}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
+      <button wx:elif="{{progress=='Unfinished' && mission_type=='Mission' || (isQuestionAcceptter == -1 && mission_type=='Question')}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">接受任务</button>
       <button wx:elif="{{(isUserPublisher && progress=='Finished')  && mission_type=='Mission'}}" class="mission-detail-button" id="button-submit" bindtap="buttonSubmit">确认完成</button>
     </view>
   </view>
