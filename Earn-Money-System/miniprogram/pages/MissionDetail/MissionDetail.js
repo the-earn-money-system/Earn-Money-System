@@ -299,53 +299,62 @@ Page({
     else {    //当用户不为发起者，也不为接受者，按钮用于接受任务
       var app = getApp()
       var that = this
-      const res = wx.cloud.callFunction({
-        name: "acceptMission",
-        data: {
-          id: that.data.mission._id,
-          recipient_id: app.globalData.openid,
-          state: "Accepted"
-        },
-        complete: function (e) {
-          console.log(e.result)
-          //get isUserPublisher from Server
-          var db = wx.cloud.database()
-          var app = getApp()
+      if(that.data.mission_type == "Question")
+      {
+        app.globalData.mission_id = this.data.mission._id
+        wx.navigateTo({
+          url: '../QuestionDetail/QuestionDetail',
+        })
+      }
+      else{
+        const res = wx.cloud.callFunction({
+          name: "acceptMission",
+          data: {
+            id: that.data.mission._id,
+            recipient_id: app.globalData.openid,
+            state: "Accepted"
+          },
+          complete: function (e) {
+            console.log(e.result)
+            //get isUserPublisher from Server
+            var db = wx.cloud.database()
+            var app = getApp()
 
-          db.collection('Mission').where({
-            _id: app.globalData.mission_id
-          }).get().then(res => {
-            console.log(res)
-            var getMission = res.data[0]
+            db.collection('Mission').where({
+              _id: app.globalData.mission_id
+            }).get().then(res => {
+              console.log(res)
+              var getMission = res.data[0]
 
-            wx.cloud.callFunction({
-              name: "login",
-              success: function (res) {
-                var openid = res.result.openid
-                var check_pub = false
-                var check_re = false
-                if (getMission.publisher_id == openid)
-                  check_pub = true
-                if (getMission.recipient_id == openid)
-                  check_re = true
+              wx.cloud.callFunction({
+                name: "login",
+                success: function (res) {
+                  var openid = res.result.openid
+                  var check_pub = false
+                  var check_re = false
+                  if (getMission.publisher_id == openid)
+                    check_pub = true
+                  if (getMission.recipient_id == openid)
+                    check_re = true
 
-                that.setData({
-                  isUserPublisher: check_pub,
-                  isUserAcceptter: check_re,
-                  missionName: getMission.Title,
-                  time: getMission.Time,
-                  pay: getMission.Pay,
-                  progress: getMission.state,
-                  detail: getMission.Info,
-                  mission: getMission
-                })
-              }
+                  that.setData({
+                    isUserPublisher: check_pub,
+                    isUserAcceptter: check_re,
+                    missionName: getMission.Title,
+                    time: getMission.Time,
+                    pay: getMission.Pay,
+                    progress: getMission.state,
+                    detail: getMission.Info,
+                    mission: getMission
+                  })
+                }
+              })
+
             })
-            
-          })
-        }
-      })
-    }
+          }
+        })
+      }
+      } 
   },
 
   buttonCancle: function(e){

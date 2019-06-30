@@ -52,7 +52,7 @@ Page({
       })
     }
     else{
-      
+      wx.navigateBack({})
     }
   },
 
@@ -96,7 +96,7 @@ Page({
             Content: that.data.mission.Content
           },
           success: function(res){
-            console.log(res,result)
+            console.log(res.result)
           }
         })
       }
