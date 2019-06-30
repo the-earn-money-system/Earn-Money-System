@@ -106,13 +106,13 @@ Page({
       }
       console.log(temp_question)
 
+      /* 在这里更新数据库 */
 
       wx.redirectTo({
         url: '../MissonSubmitComplete/MissonSubmitComplete',
       })
       return
     }
-
 
     // 普通任务
     wx.cloud.callFunction({

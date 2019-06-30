@@ -74,8 +74,14 @@ Page({
       console.log(this.data.question_array[i])
       temp_json[this.data.question_array[i]] = this.data.answerByUser[i]
     }
-    console.log(temp_json[this.data.question_array[0]])
+    console.log(temp_json)
     
+    /* 在这里更新数据库 */
+
+
+    wx.redirectTo({
+      url: '../main/main',
+    })
   },
   /**
    * 生命周期函数--监听页面加载
