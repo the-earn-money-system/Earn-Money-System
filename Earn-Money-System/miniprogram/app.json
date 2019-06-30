@@ -1,9 +1,8 @@
 {
   "pages": [
+    "pages/WeChatSignin/WeChatSignin",
     "pages/MissionSubmit/MissionSubmit",
     "pages/QuestionDetail/QuestionDetail",
-    "pages/WeChatSignin/WeChatSignin",
-    
     "pages/MissionDetail/MissionDetail",
     "pages/ModifyInfo/ModifyInfo",
     "pages/main/main",

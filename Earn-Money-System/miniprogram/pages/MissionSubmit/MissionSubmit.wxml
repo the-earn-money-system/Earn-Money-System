@@ -37,7 +37,7 @@
           <text class="ques-view">问卷调查</text>
           <view wx:for-items="{{question_array}}" wx:key="index">
             <text>任务{{question_array[index]}}</text>
-            <input class="quesion-input"></input>
+            <input class="quesion-input" name="{{index}}"></input>
           </view>
         </view>
       </scroll-view>

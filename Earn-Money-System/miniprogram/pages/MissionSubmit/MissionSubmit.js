@@ -95,6 +95,26 @@ Page({
     if (e.detail.value.time != "")
       time_temp = e.detail.value.time
 
+    // 调查问卷
+    if (this.data.type_index)
+    {
+      console.log(e.detail.value)
+      var temp_question = []
+      for(var i = 0; i < this.data.question_index; i++)
+      {
+        temp_question.push(e.detail.value[i])
+      }
+      console.log(temp_question)
+
+
+      wx.redirectTo({
+        url: '../MissonSubmitComplete/MissonSubmitComplete',
+      })
+      return
+    }
+
+
+    // 普通任务
     wx.cloud.callFunction({
       name: "login",
       success: function (res) {
