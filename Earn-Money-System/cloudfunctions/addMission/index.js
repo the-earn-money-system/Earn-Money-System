@@ -18,7 +18,8 @@ exports.main = async (event, context) => {
         state: event.state,
         type: event.type,
         Participant: event.Participant,
-        Content: event.Content
+        Content: event.Content,
+        Question: event.Question
       }
     })
   } catch (e) {

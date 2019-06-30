@@ -95,23 +95,13 @@ Page({
     if (e.detail.value.time != "")
       time_temp = e.detail.value.time
 
-    // 调查问卷
-    if (this.data.type_index)
+    console.log(e.detail.value)
+    var temp_question = []
+    for(var i = 0; i < this.data.question_index; i++)
     {
-      console.log(e.detail.value)
-      var temp_question = []
-      for(var i = 0; i < this.data.question_index; i++)
-      {
-        temp_question.push(e.detail.value[i])
-      }
-      console.log(temp_question)
-
-
-      wx.redirectTo({
-        url: '../MissonSubmitComplete/MissonSubmitComplete',
-      })
-      return
+      temp_question.push(e.detail.value[i])
     }
+    console.log(temp_question)
 
 
     // 普通任务
@@ -131,10 +121,9 @@ Page({
             recipient_id: "",
             Participant: [],
             Content: [],
-            type: e.detail.value.type
+            type: e.detail.value.type,
+            Question: temp_question
           },
-
-
 
           complete: function (res) {
             console.log(res)

@@ -75,7 +75,27 @@ Page({
       temp_json[this.data.question_array[i]] = this.data.answerByUser[i]
     }
     console.log(temp_json[this.data.question_array[0]])
-    
+
+    var that = this
+
+    wx.cloud.callFunction({
+      name: "login",
+      success: function (res) {
+        var openid = res.result.openid
+        this.data.mission.Participant.push(openid)
+        this.data.mission.Content.push(temp_json)
+        wx.cloud.callFunction({
+          name: "updataQuestion",
+          data: {
+            Participant: that.data.mission.Participant,
+            Content: that.data.mission.Content
+          },
+          success: function(res){
+            console.log(res,result)
+          }
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
